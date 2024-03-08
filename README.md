@@ -48,7 +48,7 @@ steps:
       # debug: false # plugin debug switch
       file_browser_host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
       file_browser_username: # must set args, file_browser username
-        # https://docs.drone.io/pipeline/environment/syntax/#from-secrets
+        # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
       file_browser_user_password: # must set args, file_browser user password
         from_secret: file_browser_user_password
@@ -84,7 +84,7 @@ steps:
       # debug: false # plugin debug switch
       file_browser_host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
       file_browser_username: # must set args, file_browser username
-        # https://docs.drone.io/pipeline/environment/syntax/#from-secrets
+        # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
       file_browser_user_password: # must set args, file_browser user password
         from_secret: file_browser_user_password
@@ -113,7 +113,7 @@ steps:
       file_browser_host: # must set args, file_browser host like http://127.0.0.1:80
         from_secret: file_browser_host
       file_browser_username: # must set args, file_browser username
-        # https://docs.drone.io/pipeline/environment/syntax/#from-secrets
+        # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
       file_browser_user_password: # must set args, file_browser user password
         from_secret: file_browser_user_password
