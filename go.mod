@@ -10,7 +10,7 @@ require (
 	github.com/sinlov/filebrowser-client v0.6.1
 	github.com/stretchr/testify v1.9.0
 	github.com/urfave/cli/v2 v2.27.1
-	github.com/woodpecker-kit/woodpecker-tools v1.15.0
+	github.com/woodpecker-kit/woodpecker-tools v1.17.0
 )
 
 require (

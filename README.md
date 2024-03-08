@@ -120,7 +120,7 @@ steps:
       file_browser_work_space: "" # file_browser work space. default "" will use env:DRONE_WORKSPACE
       file_browser_remote_root_path: dist/ # must set args, send to file_browser base path
       file_browser_dist_type: custom # must set args, type of dist file graph only can use: git, custom
-      file_browser_dist_graph: "{{ Repo.HostName }}/{{ Repo.GroupName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Stage.Name }}-{{ Build.Number }}-{{ Stage.FinishedTime }}" # type of dist custom
+      file_browser_dist_graph: "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}" # type of dist custom
       file_browser_target_dist_root_path: dist/ # path of file_browser work on root, can set "". default: ""
       file_browser_target_file_globs: # must set args, globs list of send to file_browser under file_browser_target_dist_root_path
         - "**/*.tar.gz"
@@ -140,23 +140,35 @@ steps:
 
 ### file_browser_dist_type
 
-- if use file_browser_dist_type = `git`, send to filebrowser file tree like
+template use struct `wd_info_shot.WoodpeckerInfoShort`
+
+use file_browser_dist_type = `git`, send to filebrowser file tree like
 
 ```
-# not use tag
+# default
 ${file_browser_remote_root_path}/
 	{{Repo.HostName}}/
-		{{Repo.GroupName}}/
+		{{Repo.OwnerName}}/
 			{{Repo.ShortName}}/
 				b/
 					{{Build.Number}}/
 						{{Commit.Branch}}/
 							{{Commit.Sha[0:8]}}
 
-# use tag
+# if in pull request
 ${file_browser_remote_root_path}/
 	{{Repo.HostName}}/
-		{{Repo.GroupName}}/
+		{{Repo.OwnerName}}/
+			{{Repo.ShortName}}/
+				pr/
+					{{Build.PR}}/
+						{{Build.Number}}/
+							{{Commit.Sha[0:8]}}
+
+# if in tag
+${file_browser_remote_root_path}/
+	{{Repo.HostName}}/
+		{{Repo.OwnerName}}/
 			{{Repo.ShortName}}/
 				tag/
 					{{Build.Tag}}/
@@ -166,6 +178,12 @@ ${file_browser_remote_root_path}/
 
 - you can use file_browser_dist_type = `custom`, like
 
+```
+{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}
+
+// will out like this will append ${file_browser_remote_root_path}
+dist/woodpecker-kit/guidance-woodpecker-agent/s/10/10-1705658166
+```
 ---
 
 - want dev this project, see [doc](doc/README.md)

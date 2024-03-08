@@ -56,8 +56,8 @@ github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsT
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/urfave/cli/v2 v2.27.1 h1:8xSQ6szndafKVRmfyeUMxkNUJQMjL1F2zmsZ+qHpfho=
 github.com/urfave/cli/v2 v2.27.1/go.mod h1:8qnjx1vcq5s2/wpsqoZFndg2CE5tNFyrTvS6SinrnYQ=
-github.com/woodpecker-kit/woodpecker-tools v1.15.0 h1:UnjqbLPx+hupXNKjQDOHBdPYuP/IfKdCwU2yelUV+ZE=
-github.com/woodpecker-kit/woodpecker-tools v1.15.0/go.mod h1:I4XCdk26UEMLXjlQcC40LyGQTBjqTRZ7xmqMDovh000=
+github.com/woodpecker-kit/woodpecker-tools v1.17.0 h1:xO8c7IMi/h82pWdSJxqfZzgzyu7Gc2oWajgKSattFKU=
+github.com/woodpecker-kit/woodpecker-tools v1.17.0/go.mod h1:I4XCdk26UEMLXjlQcC40LyGQTBjqTRZ7xmqMDovh000=
 github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 h1:QldyIu/L63oPpyvQmHgvgickp1Yw510KJOqX7H24mg8=
 github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778/go.mod h1:2MuV+tbUrU1zIOPMxZ5EncGwgmMJsa+9ucAQZXxsObs=
 github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 h1:bAn7/zixMGCfxrRTfdpNzjtPYqr8smhKouy9mxVdGPU=

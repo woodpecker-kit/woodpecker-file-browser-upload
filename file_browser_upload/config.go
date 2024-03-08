@@ -4,7 +4,13 @@ const (
 	DistTypeGit    = "git"
 	DistTypeCustom = "custom"
 
-	DistGraphTypeGit = "{{ Repo.HostName }}/{{ Repo.GroupName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Stage.Name }}-{{ Build.Number }}-{{ Stage.FinishedTime }}"
+	// DistGraphTypeGit
+	// template is used wd_info_shot.WoodpeckerInfoShort
+	DistGraphTypeGit = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}"
+
+	distGitGraphDefault     = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/b/{{ Build.Number }}/{{ Commit.Branch }}"
+	distGitGraphPullRequest = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/pr/{{ Build.PR }}/{{ Build.Number }}"
+	distGitGraphTag         = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/tag/{{ Build.Tag }}/{{ Build.Number }}"
 
 	// StepsTransferMarkDemoConfig
 	// steps transfer key
@@ -46,8 +52,10 @@ type (
 	}
 
 	FileBrowserSendConfig struct {
-		FileBrowserRemoteRootPath     string
-		FileBrowserDistType           string
+		FileBrowserRemoteRootPath string
+		FileBrowserDistType       string
+		// FileBrowserDistGraph
+		// sample is DistGraphTypeGit, template is used wd_info_shot.WoodpeckerInfoShort
 		FileBrowserDistGraph          string
 		FileBrowserTargetDistRootPath string
 

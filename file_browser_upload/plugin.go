@@ -8,10 +8,12 @@ import (
 	tools "github.com/sinlov/filebrowser-client/tools/str_tools"
 	"github.com/sinlov/filebrowser-client/web_api"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_info_shot"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
 	"log"
 	"math/rand"
+	"path"
 	"path/filepath"
 	"strconv"
 	"strings"
@@ -108,6 +110,8 @@ func argCheckInArr(mark string, target string, checkArr []string) error {
 //	replace this code with your file_browser_upload implementation
 func (p *FileBrowserPlugin) doBiz() error {
 
+	wdInfoShort := wd_info_shot.ParseWoodpeckerInfo2Shot(*p.WoodpeckerInfo)
+
 	fileBrowserClient, errNew := file_browser_client.NewClient(
 		p.Config.FileBrowserBaseConfig.FileBrowserUsername,
 		p.Config.FileBrowserBaseConfig.FileBrowserUserPassword,
@@ -127,38 +131,34 @@ func (p *FileBrowserPlugin) doBiz() error {
 	default:
 		return fmt.Errorf("send dist type not support %s", p.Config.FileBrowserSendConfig.FileBrowserDistType)
 	case DistTypeGit:
-		if p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitTag == "" {
-			remoteRealRootPath = fmt.Sprintf("%s/%s/%s/%s/%s/%s/%s/%s",
-				remoteRealRootPath,
-				p.WoodpeckerInfo.RepositoryInfo.CiRepoHostname,
-				p.WoodpeckerInfo.RepositoryInfo.CIRepoOwner,
-				p.WoodpeckerInfo.RepositoryInfo.CIRepoName,
-				"b",
-				p.WoodpeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineNumber,
-				p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitBranch,
-				string([]rune(p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitSha))[:8],
-			)
+		commitShortSha := string([]rune(p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitSha))[:8]
+		if p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitTag != "" {
+
+			tagPath, errPathTag := wd_template.RenderTrim(distGitGraphTag, wdInfoShort)
+			if errPathTag != nil {
+				return fmt.Errorf("render as %s \nerr: %v", distGitGraphTag, errPathTag)
+			}
+			remoteRealRootPath = path.Join(remoteRealRootPath, tagPath, commitShortSha)
+		} else if p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitPullRequest != "" {
+			prPath, errPathPr := wd_template.RenderTrim(distGitGraphPullRequest, wdInfoShort)
+			if errPathPr != nil {
+				return fmt.Errorf("render as %s \nerr: %v", distGitGraphPullRequest, errPathPr)
+			}
+			remoteRealRootPath = path.Join(remoteRealRootPath, prPath, commitShortSha)
 		} else {
-			remoteRealRootPath = fmt.Sprintf("%s/%s/%s/%s/%s/%s/%s/%s",
-				remoteRealRootPath,
-				p.WoodpeckerInfo.RepositoryInfo.CiRepoHostname,
-				p.WoodpeckerInfo.RepositoryInfo.CIRepoOwner,
-				p.WoodpeckerInfo.RepositoryInfo.CIRepoName,
-				"tag",
-				p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitTag,
-				p.WoodpeckerInfo.CurrentInfo.CurrentPipelineInfo.CiPipelineNumber,
-				string([]rune(p.WoodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitSha))[:8],
-			)
+			defaultPath, errPathDefault := wd_template.RenderTrim(distGitGraphDefault, wdInfoShort)
+			if errPathDefault != nil {
+				return fmt.Errorf("render as %s \nerr: %v", distGitGraphDefault, errPathDefault)
+			}
+
+			remoteRealRootPath = path.Join(remoteRealRootPath, defaultPath, commitShortSha)
 		}
 	case DistTypeCustom:
-		renderPath, err := wd_template.RenderTrim(p.Config.FileBrowserSendConfig.FileBrowserDistGraph, p.WoodpeckerInfo)
+		renderPath, err := wd_template.RenderTrim(p.Config.FileBrowserSendConfig.FileBrowserDistGraph, wdInfoShort)
 		if err != nil {
 			return fmt.Errorf("setting file_browser_dist_graph as %s \nerr: %v", p.Config.FileBrowserSendConfig.FileBrowserDistGraph, err)
 		}
-		remoteRealRootPath = fmt.Sprintf("%s/%s",
-			remoteRealRootPath,
-			renderPath,
-		)
+		remoteRealRootPath = path.Join(remoteRealRootPath, renderPath)
 	}
 
 	wd_log.Debugf("final remoteRealRootPath: %s", remoteRealRootPath)

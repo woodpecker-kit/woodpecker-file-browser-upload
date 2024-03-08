@@ -2,8 +2,10 @@ package file_browser_upload_test
 
 import (
 	"encoding/json"
+	"github.com/sinlov/filebrowser-client/web_api"
 	"github.com/woodpecker-kit/woodpecker-file-browser-upload/file_browser_upload"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_info_shot"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_mock"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_steps_transfer"
@@ -82,13 +84,19 @@ func TestCheckArgsPlugin(t *testing.T) {
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
 			errPluginRun := tc.p.Exec()
-			if !tc.wantArgFlagNotErr {
+			if tc.wantArgFlagNotErr {
+				if errPluginRun != nil {
+					wdShotInfo := wd_info_shot.ParseWoodpeckerInfo2Shot(*tc.p.WoodpeckerInfo)
+					wd_log.VerboseJsonf(wdShotInfo, "print WoodpeckerInfoShort")
+					wd_log.VerboseJsonf(tc.p.Config, "print Config")
+					t.Fatalf("wantArgFlagNotErr %v\np.Exec() error:\n%v", tc.wantArgFlagNotErr, errPluginRun)
+					return
+				}
+			} else {
+				if errPluginRun == nil {
+					t.Fatalf("test case [ %s ], wantArgFlagNotErr %v, but p.Exec() not error", tc.name, tc.wantArgFlagNotErr)
+				}
 				t.Logf("check args error: %v", errPluginRun)
-			}
-			if (errPluginRun != nil) == tc.wantArgFlagNotErr {
-				wd_log.VerboseJsonf(tc.p.Config, "print Config")
-				t.Fatalf("Exec() error = %v, wantErr %v", errPluginRun, tc.wantArgFlagNotErr)
-				return
 			}
 		})
 	}
@@ -119,11 +127,53 @@ func TestPlugin(t *testing.T) {
 	var sendSuccessByRegularJson file_browser_upload.FileBrowserPlugin
 	deepCopyByPlugin(&p, &sendSuccessByRegularJson)
 
+	// sendCustomByGlob
+	var sendCustomByGlob file_browser_upload.FileBrowserPlugin
+	deepCopyByPlugin(&p, &sendCustomByGlob)
+	sendCustomByGlob.Config.FileBrowserSendConfig.FileBrowserDistType = file_browser_upload.DistTypeCustom
+	sendCustomByGlob.Config.FileBrowserSendConfig.FileBrowserDistGraph = file_browser_upload.DistGraphTypeGit
+	sendCustomByGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
+	sendCustomByGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileGlob = mockFileGlob
+
 	// sendSuccessByGlob
 	var sendSuccessByGlob file_browser_upload.FileBrowserPlugin
 	deepCopyByPlugin(&p, &sendSuccessByGlob)
 	sendSuccessByGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
 	sendSuccessByGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileGlob = mockFileGlob
+
+	// sendSuccessPrGlob
+	var sendSuccessPrGlob file_browser_upload.FileBrowserPlugin
+	deepCopyByPlugin(&p, &sendSuccessPrGlob)
+	sendSuccessPrGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
+	sendSuccessPrGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileGlob = mockFileGlob
+	sendSuccessPrGlob.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithFastMockPullRequest("1", "new pr", "feature-support", "main", "main"),
+	)
+	sendSuccessPrGlob.WoodpeckerInfo.BasicInfo.CIWorkspace = testGoldenKit.GetTestDataFolderFullPath()
+
+	// sendSuccessTagGlob
+	var sendSuccessTagGlob file_browser_upload.FileBrowserPlugin
+	deepCopyByPlugin(&p, &sendSuccessTagGlob)
+	sendSuccessTagGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
+	sendSuccessTagGlob.Config.FileBrowserSendConfig.FileBrowserTargetFileGlob = mockFileGlob
+	sendSuccessTagGlob.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithFastMockTag("v1.0.0", "new tag"),
+	)
+	sendSuccessTagGlob.WoodpeckerInfo.BasicInfo.CIWorkspace = testGoldenKit.GetTestDataFolderFullPath()
+
+	// sendTagGlobWithShare
+	var sendTagGlobWithShare file_browser_upload.FileBrowserPlugin
+	deepCopyByPlugin(&p, &sendTagGlobWithShare)
+	sendTagGlobWithShare.Config.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
+	sendTagGlobWithShare.Config.FileBrowserSendConfig.FileBrowserTargetFileGlob = mockFileGlob
+	sendTagGlobWithShare.WoodpeckerInfo = wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithFastMockTag("v1.0.0", "new tag"),
+	)
+	sendTagGlobWithShare.WoodpeckerInfo.BasicInfo.CIWorkspace = testGoldenKit.GetTestDataFolderFullPath()
+	sendTagGlobWithShare.Config.FileBrowserSendConfig.FileBrowserShareLinkEnable = true
+	sendTagGlobWithShare.Config.FileBrowserSendConfig.FileBrowserShareLinkExpires = 12
+	sendTagGlobWithShare.Config.FileBrowserSendConfig.FileBrowserShareLinkUnit = web_api.ShareUnitHours
+	sendTagGlobWithShare.Config.FileBrowserSendConfig.FileBrowserShareLinkAutoPasswordEnable = true
 
 	tests := []struct {
 		name            string
@@ -140,9 +190,29 @@ func TestPlugin(t *testing.T) {
 			isDryRun: true,
 		},
 		{
-			name: "sendSuccessByGlob",
-			p:    sendSuccessByGlob,
-			//isDryRun: true,
+			name:     "sendCustomByGlob",
+			p:        sendCustomByGlob,
+			isDryRun: true,
+		},
+		{
+			name:     "sendSuccessByGlob",
+			p:        sendSuccessByGlob,
+			isDryRun: true,
+		},
+		{
+			name:     "sendSuccessPrGlob",
+			p:        sendSuccessPrGlob,
+			isDryRun: true,
+		},
+		{
+			name:     "sendSuccessTagGlob",
+			p:        sendSuccessTagGlob,
+			isDryRun: true,
+		},
+		{
+			name:     "sendTagGlobWithShare",
+			p:        sendTagGlobWithShare,
+			isDryRun: false,
 		},
 	}
 	for _, tc := range tests {
@@ -197,7 +267,7 @@ func mockPluginWithStatus(t *testing.T, status string) file_browser_upload.FileB
 	p.Config.FileBrowserSendConfig = file_browser_upload.FileBrowserSendConfig{
 		FileBrowserRemoteRootPath:     mockFileBrowserRemoteRootPath,
 		FileBrowserDistType:           file_browser_upload.DistTypeGit,
-		FileBrowserDistGraph:          mockFileBrowserDistGraph,
+		FileBrowserDistGraph:          file_browser_upload.EnvFileBrowserDistGraph,
 		FileBrowserTargetDistRootPath: mockFileBrowserTargetDistRootPath,
 		FileBrowserTargetFileRegular:  mockFileBrowserTargetFileRegularJson,
 	}
