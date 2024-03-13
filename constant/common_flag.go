@@ -19,6 +19,15 @@ const (
 	//  @Usage: Steps transfer file path
 	//  @Default: wd_steps_transfer.DefaultKitStepsFileName as `.woodpecker_kit.steps.transfer`
 	EnvKeyPluginStepsTransferFilePath = "PLUGIN_WOODPECKER_KIT_STEPS_TRANSFER_FILE_PATH"
+
+	// NameCliPluginStepsTransferDisableOut
+	//  @Description: Steps transfer write disable out
+	//  @Usage: Steps transfer write
+	NameCliPluginStepsTransferDisableOut = "settings.woodpecker_kit_steps_transfer_disable_out"
+
+	// EnvKeyPluginStepsTransferDisableOut
+	//  @Description: Steps transfer write disable out
+	EnvKeyPluginStepsTransferDisableOut = "PLUGIN_WOODPECKER_KIT_STEPS_TRANSFER_DISABLE_OUT"
 )
 
 // CommonFlag
@@ -49,6 +58,13 @@ func HideCommonGlobalFlag() []cli.Flag {
 			Hidden:  true,
 			Value:   wd_steps_transfer.DefaultKitStepsFileName,
 			EnvVars: []string{EnvKeyPluginStepsTransferFilePath},
+		},
+
+		&cli.BoolFlag{
+			Name:    NameCliPluginStepsTransferDisableOut,
+			Usage:   "Steps transfer write disable out",
+			Hidden:  true,
+			EnvVars: []string{EnvKeyPluginStepsTransferDisableOut},
 		},
 	}
 }

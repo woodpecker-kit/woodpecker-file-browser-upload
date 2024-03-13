@@ -133,9 +133,26 @@ steps:
       file_browser_share_link_auto_password_enable: false # password of share_link auto , if open this will cover settings.file_browser_share_link_password. default: false
 ```
 
+#### Out
+
+- just add `.woodpecker_kit.steps.transfer` at git ignore
+- will add out key `wd_share_file_browser_upload.WdShareKeyFileBrowserUpload` struct as `wd_share_file_browser_upload.WdShareFileBrowserUpload`
+
+```json
+{
+  "is_send_success": true,
+  "host_url": "http://192.168.50.199:59999/",
+  "file_browser_user_name": "share",
+  "resource_url": "dist/woodpecker-kit/guidance-woodpecker-agent/tag/v1.0.0/10/9c764dd4/",
+  "download_url": "http://192.168.50.199:59999/share/Q9yy3zSh",
+  "download_passwd": "qsAbWK00"
+}
+```
+
 ### settings.debug
 
-- if open `settings.debug` will try send file browser use `override` for debug.
+- if open `settings.debug` will try file browser use `override` for debug.
+- if open `settings.woodpecker_kit_steps_transfer_disable_out` will disable out of `wd_steps_transfer`
 - please close `settings.debug` in production models
 
 ### file_browser_dist_type
@@ -184,6 +201,7 @@ ${file_browser_remote_root_path}/
 // will out like this will append ${file_browser_remote_root_path}
 dist/woodpecker-kit/guidance-woodpecker-agent/s/10/10-1705658166
 ```
+
 ---
 
 - want dev this project, see [doc](doc/README.md)

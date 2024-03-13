@@ -10,8 +10,9 @@ import (
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info_shot"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_steps_transfer"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
-	"log"
+	"github.com/woodpecker-kit/woodpecker-transfer-data/wd_share_file_browser_upload"
 	"math/rand"
 	"path"
 	"path/filepath"
@@ -29,6 +30,8 @@ type (
 		Config         Config
 
 		FuncPlugin FuncPlugin `json:"-"`
+
+		shareFileBrowserUpload *wd_share_file_browser_upload.WdShareFileBrowserUpload
 	}
 )
 
@@ -109,6 +112,10 @@ func argCheckInArr(mark string, target string, checkArr []string) error {
 //
 //	replace this code with your file_browser_upload implementation
 func (p *FileBrowserPlugin) doBiz() error {
+
+	p.shareFileBrowserUpload = &wd_share_file_browser_upload.WdShareFileBrowserUpload{
+		IsSendSuccess: false,
+	}
 
 	wdInfoShort := wd_info_shot.ParseWoodpeckerInfo2Shot(*p.WoodpeckerInfo)
 
@@ -243,7 +250,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 			return errSendOneFile
 		}
 		if p.Config.FileBrowserSendConfig.FileBrowserShareLinkEnable {
-			errSendFileShare := shareBySendConfig(fileBrowserClient, *p, remotePath, false)
+			errSendFileShare := shareBySendConfig(fileBrowserClient, p, remotePath, false)
 			if errSendFileShare != nil {
 				return errSendFileShare
 			}
@@ -261,7 +268,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 			}
 		}
 		if p.Config.FileBrowserSendConfig.FileBrowserShareLinkEnable {
-			errSendFileShare := shareBySendConfig(fileBrowserClient, *p, remoteRealRootPath, true)
+			errSendFileShare := shareBySendConfig(fileBrowserClient, p, remoteRealRootPath, true)
 			if errSendFileShare != nil {
 				return errSendFileShare
 			}
@@ -277,7 +284,7 @@ func fetchRemotePathByLocalRoot(localAbsPath, localRootPath, remoteRootPath stri
 	return fmt.Sprintf("%s/%s", remoteRootPath, remotePath)
 }
 
-func shareBySendConfig(client file_browser_client.FileBrowserClient, p FileBrowserPlugin, remotePath string, isDir bool) error {
+func shareBySendConfig(client file_browser_client.FileBrowserClient, p *FileBrowserPlugin, remotePath string, isDir bool) error {
 	expires := strconv.Itoa(int(p.Config.FileBrowserSendConfig.FileBrowserShareLinkExpires))
 	passWord := p.Config.FileBrowserSendConfig.FileBrowserShareLinkPassword
 	if p.Config.FileBrowserSendConfig.FileBrowserShareLinkAutoPasswordEnable {
@@ -298,12 +305,22 @@ func shareBySendConfig(client file_browser_client.FileBrowserClient, p FileBrows
 	if errSendShareFile != nil {
 		return errSendShareFile
 	}
-	log.Printf("=> share page: %s", sharePost.DownloadPage)
+	wd_log.Infof("=> share page: %s", sharePost.DownloadPage)
 	if passWord != "" {
-		log.Printf("=> share pwd: %s", sharePost.DownloadPasswd)
+		wd_log.Infof("=> share pwd: %s", sharePost.DownloadPasswd)
 	}
-	log.Printf("=> share user name: %s", p.Config.FileBrowserBaseConfig.FileBrowserUsername)
-	log.Printf("=> share remote path: %s", sharePost.RemotePath)
+	wd_log.Infof("=> share user name: %s", p.Config.FileBrowserBaseConfig.FileBrowserUsername)
+	wd_log.Infof("=> share remote path: %s", sharePost.RemotePath)
+
+	shareFileBrowserUpload := wd_share_file_browser_upload.WdShareFileBrowserUpload{
+		IsSendSuccess:       true,
+		HostUrl:             p.Config.FileBrowserBaseConfig.FileBrowserHost,
+		FileBrowserUserName: p.Config.FileBrowserBaseConfig.FileBrowserUsername,
+		ResourceUrl:         sharePost.RemotePath,
+		DownloadUrl:         sharePost.DownloadPage,
+		DownloadPasswd:      sharePost.DownloadPasswd,
+	}
+	p.shareFileBrowserUpload = &shareFileBrowserUpload
 	return nil
 }
 
@@ -331,6 +348,18 @@ func randomStrBySed(cnt uint, sed string) string {
 }
 
 func (p *FileBrowserPlugin) saveStepsTransfer() error {
+	if p.Config.StepsOutDisable {
+		wd_log.Debugf("steps out disable by flag [ %v ], skip save steps transfer", p.Config.StepsOutDisable)
+		return nil
+	}
+
+	if p.shareFileBrowserUpload != nil {
+		_, errStepsTransfer := wd_steps_transfer.Out(p.Config.RootPath, p.Config.StepsTransferPath, *p.WoodpeckerInfo,
+			wd_share_file_browser_upload.WdShareKeyFileBrowserUpload, *p.shareFileBrowserUpload)
+		if errStepsTransfer != nil {
+			return errStepsTransfer
+		}
+	}
 
 	return nil
 }
