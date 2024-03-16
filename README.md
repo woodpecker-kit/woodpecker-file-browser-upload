@@ -157,7 +157,7 @@ steps:
 
 ### file_browser_dist_type
 
-template use struct `wd_info_shot.WoodpeckerInfoShort`
+template use struct `wd_short_info.WoodpeckerInfoShort`
 
 use file_browser_dist_type = `git`, send to filebrowser file tree like
 

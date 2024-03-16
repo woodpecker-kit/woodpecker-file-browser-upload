@@ -8,8 +8,8 @@ import (
 	tools "github.com/sinlov/filebrowser-client/tools/str_tools"
 	"github.com/sinlov/filebrowser-client/web_api"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
-	"github.com/woodpecker-kit/woodpecker-tools/wd_info_shot"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_short_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_steps_transfer"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
 	"github.com/woodpecker-kit/woodpecker-transfer-data/wd_share_file_browser_upload"
@@ -117,7 +117,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 		IsSendSuccess: false,
 	}
 
-	wdInfoShort := wd_info_shot.ParseWoodpeckerInfo2Shot(*p.WoodpeckerInfo)
+	wdInfoShort := wd_short_info.ParseWoodpeckerInfo2Short(*p.WoodpeckerInfo)
 
 	fileBrowserClient, errNew := file_browser_client.NewClient(
 		p.Config.FileBrowserBaseConfig.FileBrowserUsername,
@@ -307,7 +307,8 @@ func shareBySendConfig(client file_browser_client.FileBrowserClient, p *FileBrow
 	}
 	wd_log.Infof("=> share page: %s", sharePost.DownloadPage)
 	if passWord != "" {
-		wd_log.Infof("=> share pwd: %s", sharePost.DownloadPasswd)
+		wd_log.Debugf("=> share pwd: %s", sharePost.DownloadPasswd)
+		wd_log.Info("=> share with password")
 	}
 	wd_log.Infof("=> share user name: %s", p.Config.FileBrowserBaseConfig.FileBrowserUsername)
 	wd_log.Infof("=> share remote path: %s", sharePost.RemotePath)
@@ -321,6 +322,7 @@ func shareBySendConfig(client file_browser_client.FileBrowserClient, p *FileBrow
 		DownloadPasswd:      sharePost.DownloadPasswd,
 	}
 	p.shareFileBrowserUpload = &shareFileBrowserUpload
+	wd_log.DebugJsonf(p.shareFileBrowserUpload, "shareFileBrowserUpload changes by send seccess\n")
 	return nil
 }
 

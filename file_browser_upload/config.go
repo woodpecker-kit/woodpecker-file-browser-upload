@@ -5,7 +5,7 @@ const (
 	DistTypeCustom = "custom"
 
 	// DistGraphTypeGit
-	// template is used wd_info_shot.WoodpeckerInfoShort
+	// template is used wd_short_info.WoodpeckerInfoShort
 	DistGraphTypeGit = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}"
 
 	distGitGraphDefault     = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/b/{{ Build.Number }}/{{ Commit.Branch }}"
@@ -56,7 +56,7 @@ type (
 		FileBrowserRemoteRootPath string
 		FileBrowserDistType       string
 		// FileBrowserDistGraph
-		// sample is DistGraphTypeGit, template is used wd_info_shot.WoodpeckerInfoShort
+		// sample is DistGraphTypeGit, template is used wd_short_info.WoodpeckerInfoShort
 		FileBrowserDistGraph          string
 		FileBrowserTargetDistRootPath string
 
