@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.1.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.0.0...v1.1.0) (2024-03-16)
+
+### ✨ Features
+
+* github.com/woodpecker-kit/woodpecker-tools v1.18.0 and add more log to debug ([5ea9db2e](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/5ea9db2eef7e3cae86589d37ec9daacbdb88a548))
+
 ## 1.0.0 (2024-03-13)
 
 ### ✨ Features
