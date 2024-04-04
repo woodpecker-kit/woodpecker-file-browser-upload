@@ -6,7 +6,7 @@ tags: [ file-browser ]
 containerImage: sinlov/woodpecker-plugin-env
 containerImageUrl: https://hub.docker.com/r/sinlov/woodpecker-plugin-env
 url: https://github.com/woodpecker-kit/woodpecker-file-browser-upload
-icon: https://woodpecker-ci.org/img/logo.svg
+icon: https://raw.githubusercontent.com/woodpecker-kit/woodpecker-file-browser-upload/main/doc/log_image.jpeg
 ---
 
 woodpecker-file-browser-upload
