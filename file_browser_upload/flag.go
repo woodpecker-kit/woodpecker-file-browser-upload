@@ -156,10 +156,14 @@ func HideGlobalFlag() []cli.Flag {
 	return []cli.Flag{}
 }
 
-func BindCliFlags(c *cli.Context, cliName, cliVersion string, wdInfo *wd_info.WoodpeckerInfo, rootPath, stepsTransferPath string, stepsOutDisable bool) (*FileBrowserPlugin, error) {
-	debug := isBuildDebugOpen(c)
+func BindCliFlags(c *cli.Context,
+	debug bool,
+	cliName, cliVersion string,
+	wdInfo *wd_info.WoodpeckerInfo, rootPath,
+	stepsTransferPath string, stepsOutDisable bool,
+) (*FileBrowserPlugin, error) {
 
-	config := Config{
+	config := Settings{
 		Debug:             debug,
 		TimeoutSecond:     c.Uint(wd_flag.NameCliPluginTimeoutSecond),
 		StepsTransferPath: stepsTransferPath,
@@ -199,15 +203,9 @@ func BindCliFlags(c *cli.Context, cliName, cliVersion string, wdInfo *wd_info.Wo
 	p := FileBrowserPlugin{
 		Name:           cliName,
 		Version:        cliVersion,
-		WoodpeckerInfo: wdInfo,
-		Config:         config,
+		woodpeckerInfo: wdInfo,
+		Settings:       config,
 	}
 
 	return &p, nil
-}
-
-// isBuildDebugOpen
-// when config or build open debug will open debug
-func isBuildDebugOpen(c *cli.Context) bool {
-	return c.Bool(wd_flag.NameCliPluginDebug)
 }
