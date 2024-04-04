@@ -13,26 +13,25 @@ woodpecker-file-browser-upload
 
 ## Settings
 
-| Name                                           | Required | Default value | Description                                                                                                     |
-|------------------------------------------------|----------|---------------|-----------------------------------------------------------------------------------------------------------------|
-| `debug`                                        | **no**   | *false*       | open debug log or open by env `PLUGIN_DEBUG`                                                                    |
-| `timeout_second`                               | **no**   | *10*          | api timeout default: 10                                                                                         |
-| `file_browser_timeout_push_second`             | **no**   | *60*          | push each file timeout push second, must gather than 60.default: 60                                             |
-| `file_browser_host`                            | **yes**  | *none*        | file_browser host like http://127.0.0.1:80/                                                                     |
-| `file_browser_username`                        | **yes**  | *none*        | file_browser username                                                                                           |
-| `file_browser_user_password`                   | **yes**  | *none*        | file_browser user password                                                                                      |
-| `file_browser_work_space`                      | **no**   | *none*        | file_browser work space. default "" will use env:CI_WORKSPACE                                                   |
-| `file_browser_remote_root_path`                | **yes**  | *none*        | send to file_browser base path                                                                                  |
-| `file_browser_dist_type`                       | **yes**  | *none*        | type of dist file graph only can use: git, custom                                                               |
-| `file_browser_dist_graph`                      | **no**   | *none*        | type of dist custom                                                                                             |
-| `file_browser_target_dist_root_path`           | **no**   | *""*          | path of file_browser work on root, can set "". default: ""                                                      |
-| `file_browser_target_file_globs`               | **yes**  | *none*        | globs list of send to file_browser under file_browser_target_dist_root_path                                     |
-| `file_browser_target_file_regular`             | **no**   | *none*        | regular of send to file_browser under file_browser_target_dist_root_path                                        |
-| `file_browser_share_link_enable`               | **no**   | *true*        | share dist dir as link, default: true                                                                           |
-| `file_browser_share_link_expires`              | **no**   | *0*           | if set 0, will allow share_link exist forever，default: 0                                                        |
-| `file_browser_share_link_unit`                 | **no**   | *days*        | take effect by open share_link, only can use as `[ days hours minutes seconds ]`                                |
-| `file_browser_share_link_password`             | **no**   | *""*          | password of share_link, if not set will not use password, default: ""                                           |
-| `file_browser_share_link_auto_password_enable` | **no**   | *false*       | password of share_link auto , if open this will cover settings.file_browser_share_link_password. default: false |
+| Name                                      | Required | Default value | Description                                                                                                   |
+|-------------------------------------------|----------|---------------|---------------------------------------------------------------------------------------------------------------|
+| `debug`                                   | **no**   | *false*       | open debug log or open by env `PLUGIN_DEBUG`                                                                  |
+| `file-browser-timeout-send-second`        | **no**   | *60*          | push each file timeout push second, must gather than 60.default: 60                                           |
+| `file-browser-host`                       | **yes**  | *none*        | file_browser host like http://127.0.0.1:80/                                                                   |
+| `file-browser-username`                   | **yes**  | *none*        | file_browser username                                                                                         |
+| `file-browser-user-password`              | **yes**  | *none*        | file_browser user password                                                                                    |
+| `file-browser-work-space`                 | **no**   | *none*        | file_browser work space. default "" will use env:CI_WORKSPACE                                                 |
+| `file-browser-remote-root-path`           | **yes**  | *none*        | send to file_browser base path                                                                                |
+| `file-browser-dist-type`                  | **yes**  | *none*        | type of dist file graph only can use: git, custom                                                             |
+| `file-browser-dist-graph`                 | **no**   | *none*        | type of dist custom                                                                                           |
+| `file-browser-target-dist-root-path`      | **no**   | *""*          | path of file_browser work on root, can set "". default: ""                                                    |
+| `file-browser-file-globs`                 | **yes**  | *none*        | globs list of send to file_browser under file-browser-target-dist-root-path                                   |
+| `file-browser-file-regular`               | **no**   | *none*        | regular of send to file_browser under file-browser-target-dist-root-path                                      |
+| `file-browser-share-link-enable`          | **no**   | *false*       | share dist dir as link, default: false                                                                        |
+| `file-browser-share-link-expire`          | **no**   | *0*           | if set 0, will allow share_link exist forever，default: 0                                                      |
+| `file-browser-share-link-unit`            | **no**   | *days*        | take effect by open share_link, only can use as `[ days hours minutes seconds ]`                              |
+| `file-browser-share-link-passwd`          | **no**   | *""*          | password of share_link, if not set will not use password, default: ""                                         |
+| `file-browser-share-auto-password-enable` | **no**   | *false*       | password of share_link auto , if open this will cover settings.file-browser-share-link-passwd. default: false |
 
 **Hide Settings:**
 
@@ -55,19 +54,19 @@ steps:
     pull: false
     settings:
       # debug: false # plugin debug switch
-      file_browser_host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
-      file_browser_username: # must set args, file_browser username
+      file-browser-host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
+      file-browser-username: # must set args, file_browser username
         # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
-      file_browser_user_password: # must set args, file_browser user password
-        from_secret: file_browser_user_password
-      file_browser_remote_root_path: dist/ # must set args, send to file_browser base path
-      file_browser_target_file_globs: # must set args, globs list of send to file_browser under file_browser_target_dist_root_path
+      file-browser-user-password: # must set args, file_browser user password
+        from_secret: file-browser-user-password
+      file-browser-remote-root-path: dist/ # must set args, send to file_browser base path
+      file-browser-file-globs: # must set args, globs list of send to file_browser under file-browser-target-dist-root-path
         - "**/*.tar.gz"
         - "**/*.sha256"
-      file_browser_share_link_expires: 0 # if set 0, will allow share_link exist forever，default: 0
-      file_browser_share_link_unit: days # take effect by open share_link, only can use as [ days hours minutes seconds ]
-      file_browser_share_link_auto_password_enable: true # password of share_link auto , if open this will cover settings.file_browser_share_link_password. default: false
+      file-browser-share-link-expire: 0 # if set 0, will allow share_link exist forever，default: 0
+      file-browser-share-link-unit: days # take effect by open share_link, only can use as [ days hours minutes seconds ]
+      file-browser-share-auto-password-enable: true # password of share_link auto , if open this will cover settings.file-browser-share-link-passwd. default: false
 ```
 
 - workflow with backend `local`, must install at local and effective at evn `PATH`
@@ -91,19 +90,19 @@ steps:
     image: woodpecker-file-browser-upload
     settings:
       # debug: false # plugin debug switch
-      file_browser_host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
-      file_browser_username: # must set args, file_browser username
+      file-browser-host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
+      file-browser-username: # must set args, file_browser username
         # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
-      file_browser_user_password: # must set args, file_browser user password
-        from_secret: file_browser_user_password
-      file_browser_remote_root_path: dist/ # must set args, send to file_browser base path
-      file_browser_target_file_globs: # must set args, globs list of send to file_browser under file_browser_target_dist_root_path
+      file-browser-user-password: # must set args, file_browser user password
+        from_secret: file-browser-user-password
+      file-browser-remote-root-path: dist/ # must set args, send to file_browser base path
+      file-browser-file-globs: # must set args, globs list of send to file_browser under file-browser-target-dist-root-path
         - "**/*.tar.gz"
         - "**/*.sha256"
-      file_browser_share_link_expires: 0 # if set 0, will allow share_link exist forever，default: 0
-      file_browser_share_link_unit: days # take effect by open share_link, only can use as [ days hours minutes seconds ]
-      file_browser_share_link_auto_password_enable: true # password of share_link auto , if open this will cover settings.file_browser_share_link_password. default: false
+      file-browser-share-link-expire: 0 # if set 0, will allow share_link exist forever，default: 0
+      file-browser-share-link-unit: days # take effect by open share_link, only can use as [ days hours minutes seconds ]
+      file-browser-share-auto-password-enable: true # password of share_link auto , if open this will cover settings.file-browser-share-link-passwd. default: false
 ```
 
 - full config
@@ -118,28 +117,28 @@ steps:
     settings:
       debug: false # plugin debug switch
       timeout_second: 10 # api timeout default: 10
-      file_browser_timeout_push_second: 60 # push each file timeout push second, must gather than 60.default: 60
-      file_browser_host: # must set args, file_browser host like http://127.0.0.1:80
-        from_secret: file_browser_host
-      file_browser_username: # must set args, file_browser username
+      file-browser-timeout-send-second: 60 # push each file timeout push second, must gather than 60.default: 60
+      file-browser-host: # must set args, file_browser host like http://127.0.0.1:80
+        from_secret: file-browser-host
+      file-browser-username: # must set args, file_browser username
         # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
-      file_browser_user_password: # must set args, file_browser user password
-        from_secret: file_browser_user_password
-      file_browser_work_space: "" # file_browser work space. default "" will use env:CI_WORKSPACE
-      file_browser_remote_root_path: dist/ # must set args, send to file_browser base path
-      file_browser_dist_type: custom # must set args, type of dist file graph only can use: git, custom
-      file_browser_dist_graph: "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}" # type of dist custom
-      file_browser_target_dist_root_path: dist/ # path of file_browser work on root, can set "". default: ""
-      file_browser_target_file_globs: # must set args, globs list of send to file_browser under file_browser_target_dist_root_path
+      file-browser-user-password: # must set args, file_browser user password
+        from_secret: file-browser-user-password
+      file-browser-work-space: "" # file_browser work space. default "" will use env:CI_WORKSPACE
+      file-browser-remote-root-path: dist/ # must set args, send to file_browser base path
+      file-browser-dist-type: custom # must set args, type of dist file graph only can use: git, custom
+      file-browser-dist-graph: "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}" # type of dist custom
+      file-browser-target-dist-root-path: dist/ # path of file_browser work on root, can set "". default: ""
+      file-browser-file-globs: # must set args, globs list of send to file_browser under file-browser-target-dist-root-path
         - "**/*.tar.gz"
         - "**/*.sha256"
-      file_browser_target_file_regular: .*.tar.gz # must set args, regular of send to file_browser under file_browser_target_dist_root_path
-      file_browser_share_link_enable: true # share dist dir as link, default: true
-      file_browser_share_link_expires: 0 # if set 0, will allow share_link exist forever，default: 0
-      file_browser_share_link_unit: days # take effect by open share_link, only can use as [ days hours minutes seconds ]
-      file_browser_share_link_password: "" # password of share_link, if not set will not use password, default: ""
-      file_browser_share_link_auto_password_enable: false # password of share_link auto , if open this will cover settings.file_browser_share_link_password. default: false
+      file-browser-file-regular: .*.tar.gz # must set args, regular of send to file_browser under file-browser-target-dist-root-path
+      file-browser-share-link-enable: true # share dist dir as link, default: false
+      file-browser-share-link-expire: 0 # if set 0, will allow share_link exist forever，default: 0
+      file-browser-share-link-unit: days # take effect by open share_link, only can use as [ days hours minutes seconds ]
+      file-browser-share-link-passwd: "" # password of share_link, if not set will not use password, default: ""
+      file-browser-share-auto-password-enable: false # password of share_link auto , if open this will cover settings.file-browser-share-link-passwd. default: false
 ```
 
 #### Out
@@ -165,15 +164,15 @@ steps:
 - if open `settings.woodpecker-kit-steps-transfer-disable-out` will disable out of `wd_steps_transfer`
 - please close `settings.debug` in production models
 
-### file_browser_dist_type
+### file-browser-dist-type
 
 template use struct `wd_short_info.WoodpeckerInfoShort`
 
-use file_browser_dist_type = `git`, send to filebrowser file tree like
+use file-browser-dist-type = `git`, send to filebrowser file tree like
 
 ```
 # default
-${file_browser_remote_root_path}/
+${file-browser-remote-root-path}/
 	{{Repo.HostName}}/
 		{{Repo.OwnerName}}/
 			{{Repo.ShortName}}/
@@ -183,7 +182,7 @@ ${file_browser_remote_root_path}/
 							{{Commit.Sha[0:8]}}
 
 # if in pull request
-${file_browser_remote_root_path}/
+${file-browser-remote-root-path}/
 	{{Repo.HostName}}/
 		{{Repo.OwnerName}}/
 			{{Repo.ShortName}}/
@@ -193,7 +192,7 @@ ${file_browser_remote_root_path}/
 							{{Commit.Sha[0:8]}}
 
 # if in tag
-${file_browser_remote_root_path}/
+${file-browser-remote-root-path}/
 	{{Repo.HostName}}/
 		{{Repo.OwnerName}}/
 			{{Repo.ShortName}}/
@@ -205,12 +204,12 @@ ${file_browser_remote_root_path}/
 
 #### custom dist graph
 
-- you can use file_browser_dist_type = `custom`, like
+- you can use file-browser-dist-type = `custom`, like
 
 ```
 {{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}
 
-// will out like this will append ${file_browser_remote_root_path}
+// will out like this will append ${file-browser-remote-root-path}
 dist/woodpecker-kit/guidance-woodpecker-agent/s/10/10-1705658166
 ```
 

@@ -81,24 +81,24 @@ func (p *FileBrowserPlugin) loadStepsTransfer() error {
 }
 
 func (p *FileBrowserPlugin) checkArgs() error {
-	errCheck := argCheckInArr("args file_browser_dist_type", p.Settings.FileBrowserSendConfig.FileBrowserDistType, pluginDistTypeSupport)
+	errCheck := argCheckInArr("args file-browser-dist-type", p.Settings.FileBrowserSendConfig.FileBrowserDistType, pluginDistTypeSupport)
 	if errCheck != nil {
 		return errCheck
 	}
 
 	if len(p.Settings.FileBrowserSendConfig.FileBrowserTargetFileGlob) == 0 && p.Settings.FileBrowserSendConfig.FileBrowserTargetFileRegular == "" {
-		return fmt.Errorf("args file_browser_target_file_glob and file_browser_target_file_regular not be empty")
+		return fmt.Errorf("args file-browser-file-glob and file-browser-file-regular not be empty")
 	}
 	if p.Settings.FileBrowserBaseConfig.FileBrowserHost == "" {
-		return fmt.Errorf("args file_browser_host not be empty")
+		return fmt.Errorf("args file-browser-host not be empty")
 	}
 
 	if p.Settings.FileBrowserBaseConfig.FileBrowserUsername == "" {
-		return fmt.Errorf("args file_browser_username not be empty")
+		return fmt.Errorf("args file-browser-username not be empty")
 	}
 
 	if p.Settings.FileBrowserSendConfig.FileBrowserRemoteRootPath == "" {
-		return fmt.Errorf("args file_browser_remote_root_path not be empty")
+		return fmt.Errorf("args file-browser-remote-root-path not be empty")
 	}
 
 	// check default FileBrowserTimeoutPushSecond
@@ -176,7 +176,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 	case DistTypeCustom:
 		renderPath, err := wd_template.RenderTrim(p.Settings.FileBrowserSendConfig.FileBrowserDistGraph, wdInfoShort)
 		if err != nil {
-			return fmt.Errorf("setting file_browser_dist_graph as %s \nerr: %v", p.Settings.FileBrowserSendConfig.FileBrowserDistGraph, err)
+			return fmt.Errorf("setting file-browser-dist-graph as %s \nerr: %v", p.Settings.FileBrowserSendConfig.FileBrowserDistGraph, err)
 		}
 		remoteRealRootPath = path.Join(remoteRealRootPath, renderPath)
 	}
