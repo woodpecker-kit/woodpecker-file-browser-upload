@@ -12,7 +12,7 @@ const (
 	//  @Usage: Steps transfer file path
 	//  @Default: wd_steps_transfer.DefaultKitStepsFileName as `.woodpecker_kit.steps.transfer`
 	//  @EnvKey: WOODPECKER_KIT_STEPS_TRANSFER_FILE_PATH
-	NameCliPluginStepsTransferFilePath = "settings.woodpecker_kit_steps_transfer_file_path"
+	NameCliPluginStepsTransferFilePath = "settings.woodpecker-kit-steps-transfer-file-path"
 
 	// EnvKeyPluginStepsTransferFilePath
 	//  @Description: Steps transfer file path
@@ -23,7 +23,7 @@ const (
 	// NameCliPluginStepsTransferDisableOut
 	//  @Description: Steps transfer write disable out
 	//  @Usage: Steps transfer write
-	NameCliPluginStepsTransferDisableOut = "settings.woodpecker_kit_steps_transfer_disable_out"
+	NameCliPluginStepsTransferDisableOut = "settings.woodpecker-kit-steps-transfer-disable-out"
 
 	// EnvKeyPluginStepsTransferDisableOut
 	//  @Description: Steps transfer write disable out

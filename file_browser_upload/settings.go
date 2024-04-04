@@ -29,8 +29,8 @@ var (
 )
 
 type (
-	// Config file_browser_upload private config
-	Config struct {
+	// Settings file_browser_upload private config
+	Settings struct {
 		Debug             bool
 		TimeoutSecond     uint
 		StepsTransferPath string

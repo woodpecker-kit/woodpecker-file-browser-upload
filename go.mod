@@ -5,6 +5,7 @@ go 1.19
 require (
 	github.com/Masterminds/semver/v3 v3.2.1
 	github.com/gookit/color v1.5.4
+	github.com/joho/godotenv v1.5.1
 	github.com/sinlov-go/go-common-lib v1.7.0
 	github.com/sinlov-go/unittest-kit v1.1.0
 	github.com/sinlov/filebrowser-client v0.6.1

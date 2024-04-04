@@ -6,7 +6,9 @@ import (
 	"github.com/sinlov-go/unittest-kit/unittest_file_kit"
 	"github.com/woodpecker-kit/woodpecker-file-browser-upload/file_browser_upload"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_flag"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_info"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_log"
+	"github.com/woodpecker-kit/woodpecker-tools/wd_steps_transfer"
 	"github.com/woodpecker-kit/woodpecker-tools/wd_template"
 	"os"
 	"path/filepath"
@@ -115,7 +117,7 @@ func envCheck(t *testing.T) bool {
 		return false
 	}
 	t.Logf("check env for CI system")
-	return env_kit.MustHasEnvSetByArray(t, mustSetArgsAsEnvList)
+	return env_kit.MustHasEnvSetByArray(t, mustSetInCiEnvList)
 }
 
 func envMustArgsCheck(t *testing.T) bool {
@@ -126,4 +128,60 @@ func envMustArgsCheck(t *testing.T) bool {
 		}
 	}
 	return false
+}
+
+func generateTransferStepsOut(plugin file_browser_upload.FileBrowserPlugin, mark string, data interface{}) error {
+	_, err := wd_steps_transfer.Out(plugin.Settings.RootPath, plugin.Settings.StepsTransferPath, plugin.GetWoodPeckerInfo(), mark, data)
+	return err
+}
+
+func mockPluginSettings() file_browser_upload.Settings {
+	// all mock settings can set here
+	settings := file_browser_upload.Settings{
+		// use env:PLUGIN_DEBUG
+		Debug:             valEnvPluginDebug,
+		TimeoutSecond:     envTimeoutSecond,
+		RootPath:          testGoldenKit.GetTestDataFolderFullPath(),
+		StepsTransferPath: wd_steps_transfer.DefaultKitStepsFileName,
+	}
+
+	// remove or change this code
+	settings.FileBrowserBaseConfig = file_browser_upload.FileBrowserBaseConfig{
+		FileBrowserHost:              valEnvFileBrowserHost,
+		FileBrowserUsername:          valEnvFileBrowserUserName,
+		FileBrowserUserPassword:      valEnvFileBrowserPassword,
+		FileBrowserTimeoutPushSecond: valEnvFileBrowserTimeoutPushSecond,
+	}
+	settings.FileBrowserSendConfig = file_browser_upload.FileBrowserSendConfig{
+		FileBrowserRemoteRootPath:     mockFileBrowserRemoteRootPath,
+		FileBrowserDistType:           file_browser_upload.DistTypeGit,
+		FileBrowserDistGraph:          file_browser_upload.EnvFileBrowserDistGraph,
+		FileBrowserTargetDistRootPath: mockFileBrowserTargetDistRootPath,
+		FileBrowserTargetFileRegular:  mockFileBrowserTargetFileRegularJson,
+	}
+
+	return settings
+
+}
+
+func mockPluginWithSettings(t *testing.T,
+	woodpeckerInfo wd_info.WoodpeckerInfo,
+	settings file_browser_upload.Settings,
+	ciWorkspace string,
+) file_browser_upload.FileBrowserPlugin {
+	p := file_browser_upload.FileBrowserPlugin{
+		Name:    mockName,
+		Version: mockVersion,
+	}
+
+	if ciWorkspace != "" {
+		woodpeckerInfo.BasicInfo.CIWorkspace = ciWorkspace
+	}
+
+	// mock woodpecker info
+	//t.Log("mockPluginWithStatus")
+	p.SetWoodpeckerInfo(woodpeckerInfo)
+
+	p.Settings = settings
+	return p
 }

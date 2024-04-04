@@ -10,52 +10,52 @@ import (
 )
 
 const (
-	CliNameFileBrowserHost = "settings.file_browser_host"
-	EnvFileBrowserHost     = "PLUGIN_FILE_BROWSER_HOST"
-
-	CliNameFileBrowserUsername = "settings.file_browser_username"
-	EnvFileBrowserUsername     = "PLUGIN_FILE_BROWSER_USERNAME"
-
-	CliNameFileBrowserUserPassword = "settings.file_browser_user_password"
-	EnvFileBrowserUserPassword     = "PLUGIN_FILE_BROWSER_USER_PASSWORD"
-
-	CliNameFileBrowserTimeOutSendSecond = "settings.file_browser_timeout_send_second"
+	CliNameFileBrowserTimeOutSendSecond = "settings.file-browser-timeout-send-second"
 	EnvFileBrowserTimeOutSendSecond     = "PLUGIN_FILE_BROWSER_TIMEOUT_SEND_SECOND"
 
-	CilNameFileBrowserWorkSpace = "settings.file_browser_work_space"
+	CliNameFileBrowserHost = "settings.file-browser-host"
+	EnvFileBrowserHost     = "PLUGIN_FILE_BROWSER_HOST"
+
+	CliNameFileBrowserUsername = "settings.file-browser-username"
+	EnvFileBrowserUsername     = "PLUGIN_FILE_BROWSER_USERNAME"
+
+	CliNameFileBrowserUserPassword = "settings.file-browser-user-password"
+	EnvFileBrowserUserPassword     = "PLUGIN_FILE_BROWSER_USER_PASSWORD"
+
+	CilNameFileBrowserWorkSpace = "settings.file-browser-work-space"
 	EnvFileBrowserWorkSpace     = "PLUGIN_FILE_BROWSER_WORK_SPACE"
 
-	CliNameFileBrowserDistType = "settings.file_browser_dist_type"
+	CliNameFileBrowserDistType = "settings.file-browser-dist-type"
 	EnvFileBrowserDistType     = "PLUGIN_FILE_BROWSER_DIST_TYPE"
 
-	CliNameFileBrowserDistGraph = "settings.file_browser_dist_graph"
+	CliNameFileBrowserDistGraph = "settings.file-browser-dist-graph"
 	EnvFileBrowserDistGraph     = "PLUGIN_FILE_BROWSER_DIST_GRAPH"
 
-	CliNameFileBrowserRemoteRootPath = "settings.file_browser_remote_root_path"
+	CliNameFileBrowserRemoteRootPath = "settings.file-browser-remote-root-path"
 	EnvFileBrowserRemoteRootPath     = "PLUGIN_FILE_BROWSER_REMOTE_ROOT_PATH"
 
-	CliNameFileBrowserTargetDistRootPath = "settings.file_browser_target_dist_root_path"
+	CliNameFileBrowserTargetDistRootPath = "settings.file-browser-target-dist-root-path"
 	EnvFileBrowserTargetDistRootPath     = "PLUGIN_FILE_BROWSER_TARGET_DIST_ROOT_PATH"
 
-	CliNameFileBrowserFileGlob = "settings.file_browser_file_glob"
+	CliNameFileBrowserFileGlob = "settings.file-browser-file-glob"
 	EnvFileBrowserFileGlob     = "PLUGIN_FILE_BROWSER_FILE_GLOB"
 
-	CliNameFileBrowserFileRegular = "settings.file_browser_file_regular"
+	CliNameFileBrowserFileRegular = "settings.file-browser-file-regular"
 	EnvFileBrowserFileRegular     = "PLUGIN_FILE_BROWSER_FILE_REGULAR"
 
-	CliNameFileBrowserShareLinkEnable = "settings.file_browser_share_link_enable"
+	CliNameFileBrowserShareLinkEnable = "settings.file-browser-share-link-enable"
 	EnvFileBrowserShareLinkEnable     = "PLUGIN_FILE_BROWSER_SHARE_LINK_ENABLE"
 
-	CilNameFileBrowserShareLinkUnit = "settings.file_browser_share_link_unit"
+	CilNameFileBrowserShareLinkUnit = "settings.file-browser-share-link-unit"
 	EnvFileBrowserShareLinkUnit     = "PLUGIN_FILE_BROWSER_SHARE_LINK_UNIT"
 
-	CliNameFileBrowserShareLinkExpire = "settings.file_browser_share_link_expire"
+	CliNameFileBrowserShareLinkExpire = "settings.file-browser-share-link-expire"
 	EnvFileBrowserShareLinkExpire     = "PLUGIN_FILE_BROWSER_SHARE_LINK_EXPIRE"
 
-	CliNameFileBrowserShareAutoPasswordEnable = "settings.file_browser_share_auto_password_enable"
+	CliNameFileBrowserShareAutoPasswordEnable = "settings.file-browser-share-auto-password-enable"
 	EnvFileBrowserShareAutoPasswordEnable     = "PLUGIN_FILE_BROWSER_SHARE_AUTO_PASSWORD_ENABLE"
 
-	CliNameFileBrowserShareLinkPasswd = "settings.file_browser_share_link_passwd"
+	CliNameFileBrowserShareLinkPasswd = "settings.file-browser-share-link-passwd"
 	EnvFileBrowserShareLinkPasswd     = "PLUGIN_FILE_BROWSER_SHARE_LINK_PASSWD"
 )
 
@@ -101,7 +101,7 @@ func GlobalFlag() []cli.Flag {
 		},
 		&cli.StringFlag{
 			Name:    CliNameFileBrowserRemoteRootPath,
-			Usage:   "must set args, this will append by file_browser_dist_type at remote",
+			Usage:   "must set args, this will append by file-browser-dist-type at remote",
 			EnvVars: []string{EnvFileBrowserRemoteRootPath},
 		},
 		&cli.StringFlag{
@@ -112,12 +112,12 @@ func GlobalFlag() []cli.Flag {
 		},
 		&cli.StringSliceFlag{
 			Name:    CliNameFileBrowserFileGlob,
-			Usage:   "must set args, globs list of send to file_browser under file_browser_target_dist_root_path",
+			Usage:   "must set args, globs list of send to file_browser under file-browser-target-dist-root-path",
 			EnvVars: []string{EnvFileBrowserFileGlob},
 		},
 		&cli.StringFlag{
 			Name:    CliNameFileBrowserFileRegular,
-			Usage:   "must set args, regular of send to file_browser under file_browser_target_dist_root_path",
+			Usage:   "must set args, regular of send to file_browser under file-browser-target-dist-root-path",
 			EnvVars: []string{EnvFileBrowserFileRegular},
 		},
 		&cli.BoolFlag{
@@ -139,7 +139,7 @@ func GlobalFlag() []cli.Flag {
 		},
 		&cli.BoolFlag{
 			Name:    CliNameFileBrowserShareAutoPasswordEnable,
-			Usage:   "password of share_link auto , if open this will cover settings.file_browser_share_link_password",
+			Usage:   "password of share_link auto , if open this will cover settings.file-browser-share-link-passwd",
 			Value:   false,
 			EnvVars: []string{EnvFileBrowserShareAutoPasswordEnable},
 		},
@@ -156,10 +156,14 @@ func HideGlobalFlag() []cli.Flag {
 	return []cli.Flag{}
 }
 
-func BindCliFlags(c *cli.Context, cliName, cliVersion string, wdInfo *wd_info.WoodpeckerInfo, rootPath, stepsTransferPath string, stepsOutDisable bool) (*FileBrowserPlugin, error) {
-	debug := isBuildDebugOpen(c)
+func BindCliFlags(c *cli.Context,
+	debug bool,
+	cliName, cliVersion string,
+	wdInfo *wd_info.WoodpeckerInfo, rootPath,
+	stepsTransferPath string, stepsOutDisable bool,
+) (*FileBrowserPlugin, error) {
 
-	config := Config{
+	config := Settings{
 		Debug:             debug,
 		TimeoutSecond:     c.Uint(wd_flag.NameCliPluginTimeoutSecond),
 		StepsTransferPath: stepsTransferPath,
@@ -199,15 +203,9 @@ func BindCliFlags(c *cli.Context, cliName, cliVersion string, wdInfo *wd_info.Wo
 	p := FileBrowserPlugin{
 		Name:           cliName,
 		Version:        cliVersion,
-		WoodpeckerInfo: wdInfo,
-		Config:         config,
+		woodpeckerInfo: wdInfo,
+		Settings:       config,
 	}
 
 	return &p, nil
-}
-
-// isBuildDebugOpen
-// when config or build open debug will open debug
-func isBuildDebugOpen(c *cli.Context) bool {
-	return c.Bool(wd_flag.NameCliPluginDebug)
 }
