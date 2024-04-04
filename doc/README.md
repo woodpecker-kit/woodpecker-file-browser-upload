@@ -101,37 +101,43 @@ $ make helpDocker
 ```
 .
 ├── Dockerfile                     # ci docker build
-├── Dockerfile.s6                  # local docker build
+├── build.dockerfile               # local docker build
 ├── Makefile                       # make entry
 ├── README.md
-├── build                          # build output
+├── build                          # build output folder
+├── dist                           # dist output folder
 ├── cmd
-│     └── woodpecker-file-browser-upload     # command line main package install and dev entrance
+│     ├── cli
+│     │     ├── app.go             # cli entry
+│     │     ├── cli_aciton_test.go # cli action test
+│     │     └── cli_action.go      # cli action
+│     └── woodpecker-plugin-env    # command line main package install and dev entrance
 │         ├── main.go                   # command line entry
 │         └── main_test.go              # integrated test entry
-├── command                        # command line package
-│         ├── TestMain.go             # common entry in unit test package
-│         ├── flag.go                 # global flag
-│         ├── global.go               # global command
-│         ├── global_test.go          # global command unit test
-│         ├── golder_data_test.go     # unit test test data case
-│         ├── init_test.go            # unit test initialization tool
-│         └── subcommand_new          # subcommandPackage new
-├── constant                       # constant package 
-│         └── env.go                  # constant environment variable
-├── doc                            # command line tools documentation
-│         └── cmd.md
+├── constant                       # constant package
+│         ├── common_flag.go         # common environment variable
+│         ├── platform_flag.go       # platform environment variable
+│         └── version.go             # semver version constraint set
+├── doc
+│         ├── README.md              # command line tools documentation
+│         └── docs.md                # woodpecker documentation
 ├── go.mod
 ├── go.sum
-├── package.json                   # command line profile information
-├── resource.go                    # embed resource 
-├── utils                          # toolkit package
-│         ├── env_kit                 # environment variables toolkit
-│         ├── log                     # log toolkit
+├── package.json                   # command line profile information for embed
+├── resource.go                    # embed resource
+├── internal                          # toolkit package
 │         ├── pkgJson                 # package.json toolkit
-│         └── urfave_cli              # urfave/cli toolkit
-├── vendor
-└── z-MakefileUtils                # make toolkit
+│         └── version_check           # version check by semver
+├── plugin                         # plugin package
+│         ├── flag.go                 # plugin flag
+│         ├── impl.go                 # plugin implement
+│         ├── plugin.go               # plugin entry
+│         └── settings.go             # plugin settings
+├── plugin_test                    # plugin test
+│         ├── init_test.go            # each test init
+│         └── plugin_test.go          # plugin test
+├── z-MakefileUtils                # make toolkit
+└── zymosis                         # resource mark by https://github.com/convention-change/zymosis
 
 ```
 
@@ -148,5 +154,30 @@ func GlobalBeforeAction(c *cli.Context) error {
     wd_log.OpenDebug()
   }
   return nil
+}
+```
+
+### template
+
+- [https://github.com/aymerick/raymond](https://github.com/aymerick/raymond)
+- function doc [https://masterminds.github.io/sprig/](https://masterminds.github.io/sprig/)
+
+- open template support at cli `main.go`
+
+```go
+package main
+func main() {
+	// register helpers once
+	wd_template.RegisterSettings(wd_template.DefaultHelpers)
+}
+```
+- and open at test `init_test.go`
+
+```go
+package plugin_test
+
+func init() {
+	// if open wd_template please open this
+	wd_template.RegisterSettings(wd_template.DefaultHelpers)
 }
 ```
