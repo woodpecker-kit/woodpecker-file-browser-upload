@@ -152,7 +152,7 @@ steps:
 ### settings.debug
 
 - if open `settings.debug` will try file browser use `override` for debug.
-- if open `settings.woodpecker_kit_steps_transfer_disable_out` will disable out of `wd_steps_transfer`
+- if open `settings.woodpecker-kit-steps-transfer-disable-out` will disable out of `wd_steps_transfer`
 - please close `settings.debug` in production models
 
 ### file_browser_dist_type
