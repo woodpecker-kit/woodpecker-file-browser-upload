@@ -21,34 +21,34 @@ func TestCheckArgsPlugin(t *testing.T) {
 
 	// defaultSettings
 	defaultSettingsWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	defaultSettings := mockForTestArgsPluginSettings()
 
 	// basicInfoEmptyFileBrowserHost
 	basicInfoEmptyFileBrowserHostWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	basicInfoEmptyFileBrowserHostSettings := mockForTestArgsPluginSettings()
 	basicInfoEmptyFileBrowserHostSettings.FileBrowserBaseConfig.FileBrowserHost = ""
 
 	// basicInfoEmptyFileBrowserUserName
 	basicInfoEmptyFileBrowserUserNameWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	basicInfoEmptyFileBrowserUserNameSettings := mockForTestArgsPluginSettings()
 	basicInfoEmptyFileBrowserUserNameSettings.FileBrowserBaseConfig.FileBrowserUsername = ""
 
 	// distTypeNotSupport
 	distTypeNotSupportWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	distTypeNotSupportSettings := mockForTestArgsPluginSettings()
 	distTypeNotSupportSettings.FileBrowserSendConfig.FileBrowserDistType = "not_support"
 
 	// fileTargetAllEmpty
 	fileTargetAllEmptyWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	fileTargetAllEmptySettings := mockForTestArgsPluginSettings()
 	fileTargetAllEmptySettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
@@ -56,7 +56,7 @@ func TestCheckArgsPlugin(t *testing.T) {
 
 	// fileBrowserDistTypeEmpty
 	fileBrowserDistTypeEmptyWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	fileBrowserDistTypeEmptySettings := mockForTestArgsPluginSettings()
 	fileBrowserDistTypeEmptySettings.FileBrowserSendConfig.FileBrowserDistType = ""
@@ -161,13 +161,13 @@ func TestPlugin(t *testing.T) {
 
 	// sendSuccessByRegularJson
 	sendSuccessByRegularJsonWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	sendSuccessByRegularJsonSettings := mockPluginSettings()
 
 	// sendCustomByGlob
 	sendCustomByGlobWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	sendCustomByGlobSettings := mockPluginSettings()
 	sendCustomByGlobSettings.FileBrowserSendConfig.FileBrowserDistType = file_browser_upload.DistTypeCustom
@@ -177,7 +177,7 @@ func TestPlugin(t *testing.T) {
 
 	// sendSuccessByGlob
 	sendSuccessByGlobalWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+		wd_mock.FastCurrentStatus(wd_info.BuildStatusSuccess),
 	)
 	sendSuccessByGlobalSettings := mockPluginSettings()
 	sendSuccessByGlobalSettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
@@ -185,7 +185,7 @@ func TestPlugin(t *testing.T) {
 
 	// sendSuccessPrGlob
 	sendSuccessPrGlobalWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithFastMockPullRequest("1", "new pr", "feature-support", "main", "main"),
+		wd_mock.FastPullRequest("1", "new pr", "feature-support", "main", "main"),
 	)
 	sendSuccessPrGlobalSettings := mockPluginSettings()
 	sendSuccessPrGlobalSettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
@@ -193,7 +193,7 @@ func TestPlugin(t *testing.T) {
 
 	// sendSuccessTagGlob
 	sendSuccessTagGlobalWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithFastMockTag("v1.0.0", "new tag"),
+		wd_mock.FastTag("v1.0.0", "new tag"),
 	)
 	sendSuccessTagGlobalSettings := mockPluginSettings()
 	sendSuccessTagGlobalSettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
@@ -201,7 +201,7 @@ func TestPlugin(t *testing.T) {
 
 	// sendTagGlobWithShare
 	sendTagGlobWithShareWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithFastMockTag("v1.0.0", "new tag"),
+		wd_mock.FastTag("v1.0.0", "new tag"),
 	)
 	sendTagGlobWithShareSettings := mockPluginSettings()
 	sendTagGlobWithShareSettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
@@ -212,7 +212,7 @@ func TestPlugin(t *testing.T) {
 
 	// sendTagGlobWithPasswdShare
 	sendTagGlobWithPasswdShareWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
-		wd_mock.WithFastMockTag("v1.0.0", "new tag"),
+		wd_mock.FastTag("v1.0.0", "new tag"),
 	)
 	sendTagGlobWithPasswdShareSettings := mockPluginSettings()
 	sendTagGlobWithPasswdShareSettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
