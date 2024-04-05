@@ -257,7 +257,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 			RemoteFilePath: remotePath,
 		}
 		errSendOneFile := fileBrowserClient.ResourcesPostFile(resourcePostOne, p.Settings.Debug)
-		if err != nil {
+		if errSendOneFile != nil {
 			return errSendOneFile
 		}
 		if p.Settings.FileBrowserSendConfig.FileBrowserShareLinkEnable {
@@ -274,7 +274,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 				RemoteFilePath: fetchRemotePathByLocalRoot(item, targetRootPath, remoteRealRootPath),
 			}
 			errSendOneFile := fileBrowserClient.ResourcesPostFile(resourcePost, p.Settings.Debug)
-			if err != nil {
+			if errSendOneFile != nil {
 				return errSendOneFile
 			}
 		}
