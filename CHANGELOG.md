@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.4.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.3.0...v1.4.0) (2024-04-05)
+
+### ✨ Features
+
+* github.com/woodpecker-kit/woodpecker-transfer-data v1.1.0 and `DownloadPage` ([0614e7a9](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/0614e7a911469389fc6b5ab9db8a4bc2c2b458d0))
+
 ## [1.3.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.2.0...v1.3.0) (2024-04-05)
 
 ### 🐛 Bug Fixes
