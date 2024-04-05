@@ -37,7 +37,7 @@ woodpecker-file-browser-upload
 
 | Name                                        | Required | Default value                    | Description                                                                      |
 |---------------------------------------------|----------|----------------------------------|----------------------------------------------------------------------------------|
-| `timeout_second`                            | **no**   | *10*                             | "command timeout setting by second                                               |
+| `timeout_second`                            | **no**   | *10*                             | command timeout setting by second                                                |
 | `woodpecker-kit-steps-transfer-file-path`   | **no**   | `.woodpecker_kit.steps.transfer` | Steps transfer file path, default by `wd_steps_transfer.DefaultKitStepsFileName` |
 | `woodpecker-kit-steps-transfer-disable-out` | **no**   | *false*                          | Steps transfer write disable out                                                 |
 
