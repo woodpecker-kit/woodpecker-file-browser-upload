@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.3.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.2.0...v1.3.0) (2024-04-05)
+
+### 🐛 Bug Fixes
+
+* let some err must return ([9ef7f271](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/9ef7f271f0369c7720cb0f9b20602b08cf25ac05))
+
+### ✨ Features
+
+* update `DistGraphTypeGit` `distGitGraphDefault` `distGitGraphPullRequest` ([ee73f900](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/ee73f900148864609ae981ed8e8213e698dd198a))
+
+### 📝 Documentation
+
+* format docs.md ([c1eef3a2](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/c1eef3a2b0bebb63d2b77f24b97bc03d77d7a173))
+
+* update doc ([97d0aeef](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/97d0aeeffe229694eb7eadc412f6c1acd6dc167a))
+
 ## [1.2.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.1.0...v1.2.0) (2024-04-05)
 
 ### ✨ Features
