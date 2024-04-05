@@ -165,9 +165,9 @@ steps:
   "is_send_success": true,
   "host_url": "http://192.168.50.199:59999/",
   "file_browser_user_name": "share",
-  "resource_url": "dist/woodpecker-kit/guidance-woodpecker-agent/tag/v1.0.0/10/9c764dd4/",
-  "download_url": "http://192.168.50.199:59999/share/Q9yy3zSh",
-  "download_passwd": "qsAbWK00"
+  "download_url": "http://192.168.50.54:59999/api/public/dl/bIf-VmIz?token=HH8LYsnNi3LRpdpeFsYGp5HaUUjC8A4BHOOVsVNlmLq5VhpW7-lD1iTUKlcydbwb9zRp6GD--0eafpJMeI40i2MZX8-VFhJ0RJ_TFTZgHn2qLgfwFC9iwW2S1dlgA6c_",
+  "download_page": "http://192.168.50.54:59999/share/bIf-VmIz",
+  "download_passwd": "hfBhZjEC"
 }
 ```
 

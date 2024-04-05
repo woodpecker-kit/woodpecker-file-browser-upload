@@ -12,7 +12,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/urfave/cli/v2 v2.27.1
 	github.com/woodpecker-kit/woodpecker-tools v1.18.0
-	github.com/woodpecker-kit/woodpecker-transfer-data v1.0.0
+	github.com/woodpecker-kit/woodpecker-transfer-data v1.1.0
 )
 
 require (

@@ -209,7 +209,18 @@ func TestPlugin(t *testing.T) {
 	sendTagGlobWithShareSettings.FileBrowserSendConfig.FileBrowserShareLinkEnable = true
 	sendTagGlobWithShareSettings.FileBrowserSendConfig.FileBrowserShareLinkExpires = 12
 	sendTagGlobWithShareSettings.FileBrowserSendConfig.FileBrowserShareLinkUnit = web_api.ShareUnitHours
-	sendTagGlobWithShareSettings.FileBrowserSendConfig.FileBrowserShareLinkAutoPasswordEnable = true
+
+	// sendTagGlobWithPasswdShare
+	sendTagGlobWithPasswdShareWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithFastMockTag("v1.0.0", "new tag"),
+	)
+	sendTagGlobWithPasswdShareSettings := mockPluginSettings()
+	sendTagGlobWithPasswdShareSettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
+	sendTagGlobWithPasswdShareSettings.FileBrowserSendConfig.FileBrowserTargetFileGlob = mockFileGlob
+	sendTagGlobWithPasswdShareSettings.FileBrowserSendConfig.FileBrowserShareLinkEnable = true
+	sendTagGlobWithPasswdShareSettings.FileBrowserSendConfig.FileBrowserShareLinkExpires = 12
+	sendTagGlobWithPasswdShareSettings.FileBrowserSendConfig.FileBrowserShareLinkUnit = web_api.ShareUnitHours
+	sendTagGlobWithPasswdShareSettings.FileBrowserSendConfig.FileBrowserShareLinkAutoPasswordEnable = true
 
 	tests := []struct {
 		name           string
@@ -262,6 +273,13 @@ func TestPlugin(t *testing.T) {
 			name:           "sendTagGlobWithShare",
 			woodpeckerInfo: sendTagGlobWithShareWoodpeckerInfo,
 			settings:       sendTagGlobWithShareSettings,
+			ciWorkspace:    testDataDistFolderPath,
+			isDryRun:       false,
+		},
+		{
+			name:           "sendTagGlobWithPasswdShare",
+			woodpeckerInfo: sendTagGlobWithPasswdShareWoodpeckerInfo,
+			settings:       sendTagGlobWithPasswdShareSettings,
 			ciWorkspace:    testDataDistFolderPath,
 			isDryRun:       false,
 		},

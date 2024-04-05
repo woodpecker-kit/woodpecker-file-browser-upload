@@ -317,21 +317,32 @@ func shareBySendConfig(client file_browser_client.FileBrowserClient, p *FileBrow
 		return errSendShareFile
 	}
 	wd_log.Infof("=> share page: %s", sharePost.DownloadPage)
-	if passWord != "" {
+	var shareFileBrowserUpload wd_share_file_browser_upload.WdShareFileBrowserUpload
+	if passWord == "" {
+		shareFileBrowserUpload = wd_share_file_browser_upload.WdShareFileBrowserUpload{
+			IsSendSuccess:       true,
+			HostUrl:             p.Settings.FileBrowserBaseConfig.FileBrowserHost,
+			FileBrowserUserName: p.Settings.FileBrowserBaseConfig.FileBrowserUsername,
+			ResourceUrl:         sharePost.RemotePath,
+			DownloadPage:        sharePost.DownloadPage,
+			DownloadUrl:         sharePost.DownloadUrl,
+		}
+	} else {
 		wd_log.Debugf("=> share pwd: %s", sharePost.DownloadPasswd)
 		wd_log.Info("=> share with password")
+		shareFileBrowserUpload = wd_share_file_browser_upload.WdShareFileBrowserUpload{
+			IsSendSuccess:       true,
+			HostUrl:             p.Settings.FileBrowserBaseConfig.FileBrowserHost,
+			FileBrowserUserName: p.Settings.FileBrowserBaseConfig.FileBrowserUsername,
+			ResourceUrl:         sharePost.RemotePath,
+			DownloadUrl:         sharePost.DownloadUrl,
+			DownloadPage:        sharePost.DownloadPage,
+			DownloadPasswd:      sharePost.DownloadPasswd,
+		}
 	}
 	wd_log.Infof("=> share user name: %s", p.Settings.FileBrowserBaseConfig.FileBrowserUsername)
 	wd_log.Infof("=> share remote path: %s", sharePost.RemotePath)
 
-	shareFileBrowserUpload := wd_share_file_browser_upload.WdShareFileBrowserUpload{
-		IsSendSuccess:       true,
-		HostUrl:             p.Settings.FileBrowserBaseConfig.FileBrowserHost,
-		FileBrowserUserName: p.Settings.FileBrowserBaseConfig.FileBrowserUsername,
-		ResourceUrl:         sharePost.RemotePath,
-		DownloadUrl:         sharePost.DownloadPage,
-		DownloadPasswd:      sharePost.DownloadPasswd,
-	}
 	p.shareFileBrowserUpload = &shareFileBrowserUpload
 	wd_log.DebugJsonf(p.shareFileBrowserUpload, "shareFileBrowserUpload changes by send seccess\n")
 	return nil
