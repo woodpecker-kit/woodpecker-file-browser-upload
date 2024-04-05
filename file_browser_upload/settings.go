@@ -6,11 +6,11 @@ const (
 
 	// DistGraphTypeGit
 	// template is used wd_short_info.WoodpeckerInfoShort
-	DistGraphTypeGit = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}"
+	DistGraphTypeGit = "{{ Repo.Hostname }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/s/{{ Build.Number }}/{{ Build.Number }}-{{ Stage.Finished }}"
 
-	distGitGraphDefault     = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/b/{{ Build.Number }}/{{ Commit.Branch }}"
-	distGitGraphPullRequest = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/pr/{{ Build.PR }}/{{ Build.Number }}"
-	distGitGraphTag         = "{{ Repo.HostName }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/tag/{{ Build.Tag }}/{{ Build.Number }}"
+	distGitGraphDefault     = "{{ Repo.Hostname }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/b/{{ Build.Number }}/{{ Commit.Branch }}"
+	distGitGraphPullRequest = "{{ Repo.Hostname }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/pr/{{ Build.PR }}/{{ Build.Number }}"
+	distGitGraphTag         = "{{ Repo.Hostname }}/{{ Repo.OwnerName }}/{{ Repo.ShortName }}/tag/{{ Build.Tag }}/{{ Build.Number }}"
 
 	// StepsTransferMarkDemoConfig
 	// steps transfer key

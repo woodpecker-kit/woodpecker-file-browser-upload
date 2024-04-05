@@ -130,8 +130,6 @@ func (p *FileBrowserPlugin) doBiz() error {
 		IsSendSuccess: false,
 	}
 
-	wdInfoShort := wd_short_info.ParseWoodpeckerInfo2Short(*p.woodpeckerInfo)
-
 	fileBrowserClient, errNew := file_browser_client.NewClient(
 		p.Settings.FileBrowserBaseConfig.FileBrowserUsername,
 		p.Settings.FileBrowserBaseConfig.FileBrowserUserPassword,
@@ -154,19 +152,19 @@ func (p *FileBrowserPlugin) doBiz() error {
 		commitShortSha := string([]rune(p.woodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitSha))[:8]
 		if p.woodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitTag != "" {
 
-			tagPath, errPathTag := wd_template.RenderTrim(distGitGraphTag, wdInfoShort)
+			tagPath, errPathTag := wd_template.RenderTrim(distGitGraphTag, p.ShortInfo())
 			if errPathTag != nil {
 				return fmt.Errorf("render as %s \nerr: %v", distGitGraphTag, errPathTag)
 			}
 			remoteRealRootPath = path.Join(remoteRealRootPath, tagPath, commitShortSha)
 		} else if p.woodpeckerInfo.CurrentInfo.CurrentCommitInfo.CiCommitPullRequest != "" {
-			prPath, errPathPr := wd_template.RenderTrim(distGitGraphPullRequest, wdInfoShort)
+			prPath, errPathPr := wd_template.RenderTrim(distGitGraphPullRequest, p.ShortInfo())
 			if errPathPr != nil {
 				return fmt.Errorf("render as %s \nerr: %v", distGitGraphPullRequest, errPathPr)
 			}
 			remoteRealRootPath = path.Join(remoteRealRootPath, prPath, commitShortSha)
 		} else {
-			defaultPath, errPathDefault := wd_template.RenderTrim(distGitGraphDefault, wdInfoShort)
+			defaultPath, errPathDefault := wd_template.RenderTrim(distGitGraphDefault, p.ShortInfo())
 			if errPathDefault != nil {
 				return fmt.Errorf("render as %s \nerr: %v", distGitGraphDefault, errPathDefault)
 			}
@@ -174,7 +172,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 			remoteRealRootPath = path.Join(remoteRealRootPath, defaultPath, commitShortSha)
 		}
 	case DistTypeCustom:
-		renderPath, err := wd_template.RenderTrim(p.Settings.FileBrowserSendConfig.FileBrowserDistGraph, wdInfoShort)
+		renderPath, err := wd_template.RenderTrim(p.Settings.FileBrowserSendConfig.FileBrowserDistGraph, p.ShortInfo())
 		if err != nil {
 			return fmt.Errorf("setting file-browser-dist-graph as %s \nerr: %v", p.Settings.FileBrowserSendConfig.FileBrowserDistGraph, err)
 		}

@@ -54,6 +54,13 @@ func TestCheckArgsPlugin(t *testing.T) {
 	fileTargetAllEmptySettings.FileBrowserSendConfig.FileBrowserTargetFileRegular = ""
 	fileTargetAllEmptySettings.FileBrowserSendConfig.FileBrowserTargetFileGlob = []string{}
 
+	// fileBrowserDistTypeEmpty
+	fileBrowserDistTypeEmptyWoodpeckerInfo := *wd_mock.NewWoodpeckerInfo(
+		wd_mock.WithCurrentPipelineStatus(wd_info.BuildStatusSuccess),
+	)
+	fileBrowserDistTypeEmptySettings := mockForTestArgsPluginSettings()
+	fileBrowserDistTypeEmptySettings.FileBrowserSendConfig.FileBrowserDistType = ""
+
 	tests := []struct {
 		name              string
 		woodpeckerInfo    wd_info.WoodpeckerInfo
@@ -92,6 +99,12 @@ func TestCheckArgsPlugin(t *testing.T) {
 			name:           "fileTargetAllEmpty",
 			woodpeckerInfo: fileTargetAllEmptyWoodpeckerInfo,
 			settings:       fileTargetAllEmptySettings,
+			ciWorkspace:    testDataDistFolderPath,
+		},
+		{
+			name:           "fileBrowserDistTypeEmpty",
+			woodpeckerInfo: fileBrowserDistTypeEmptyWoodpeckerInfo,
+			settings:       fileBrowserDistTypeEmptySettings,
 			ciWorkspace:    testDataDistFolderPath,
 		},
 	}
