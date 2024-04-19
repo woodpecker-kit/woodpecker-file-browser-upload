@@ -38,6 +38,8 @@ Please read [Contributor Guide](.github/CONTRIBUTING_DOC/CONTRIBUTING.md) for mo
     - [x] support share link auto password
     - [x] support share link password
 - [x] support send result to woodpecker steps transfer
+- [x] docker platform support (v1.6.+)
+  -  `linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x`
 
 ## usage
 
