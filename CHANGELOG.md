@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.6.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.5.0...v1.6.0) (2024-04-19)
+
+### ✨ Features
+
+* build by docker buildx bake plugin, update docker platform support ([ee310d89](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/ee310d89fc11ed73e9ac9c947130c96684c9856f)), feat [#3](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/issues/3)
+
+### 📝 Documentation
+
+* update doc/README.md ([97c87153](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/97c8715331327f638ba81bdb50475f7f25d40501))
+
 ## [1.5.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.4.0...v1.5.0) (2024-04-05)
 
 ### ✨ Features
