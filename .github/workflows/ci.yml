@@ -30,9 +30,10 @@ on:
     #   - 'DOC-*'
     #   - 'hotfix-*'
 
-permissions:
+permissions: # https://docs.github.com/actions/using-workflows/workflow-syntax-for-github-actions#permissions
   contents: write
   discussions: write
+  packages: write
 
 jobs:
   version:
@@ -57,21 +58,18 @@ jobs:
     with:
       version_name: latest
 
-  docker-image-latest:
-    name: docker-image-latest
+  docker-buildx-bake-hubdocker-latest:
+    name: docker-buildx-bake-hubdocker-latest
     needs:
       - version
       - golang-ci
       - go-build-check-main
-    uses: ./.github/workflows/docker-image-latest.yml
-    if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/main' ) || ( github.base_ref == 'main' && github.event.pull_request.merged == true ) }}
+    uses: ./.github/workflows/docker-buildx-bake-hubdocker-latest.yml
+    # if: ${{ ( github.event_name == 'push' && github.ref == 'refs/heads/main' ) || github.base_ref == 'main' }}
     with:
-      # build_branch_name: 'main'
-      # push_remote_flag: ${{ github.event.pull_request.merged == true }}
-      push_remote_flag: ${{ github.ref == 'refs/heads/main' }}
+      # push_remote_flag: ${{ github.ref == 'refs/heads/main' }}
+      push_remote_flag: ${{ github.event.pull_request.merged == true }}
     secrets:
-      DOCKERHUB_OWNER: "${{ secrets.DOCKERHUB_OWNER }}"
-      DOCKERHUB_REPO_NAME: "${{ secrets.DOCKERHUB_REPO_NAME }}"
       DOCKERHUB_TOKEN: "${{ secrets.DOCKERHUB_TOKEN }}"
 
   go-release-platform:
@@ -86,18 +84,17 @@ jobs:
       version_name: ${{ needs.version.outputs.tag_name }}
       upload_artifact_name: go-release
 
-  docker-image-tag:
-    name: docker-image-tag
+  docker-buildx-bake-hubdocker-tag:
+    name: docker-buildx-bake-hubdocker-tag
     needs:
       - version
       - golang-ci
-    uses: ./.github/workflows/docker-image-tag.yml
+      - go-release-platform
+    uses: ./.github/workflows/docker-buildx-bake-hubdocker-tag.yml
     if: startsWith(github.ref, 'refs/tags/')
     # with:
-      # push_remote_flag: false
+      # push_remote_flag: true # default is true
     secrets:
-      DOCKERHUB_OWNER: "${{ secrets.DOCKERHUB_OWNER }}"
-      DOCKERHUB_REPO_NAME: "${{ secrets.DOCKERHUB_REPO_NAME }}"
       DOCKERHUB_TOKEN: "${{ secrets.DOCKERHUB_TOKEN }}"
 
   deploy-tag:
@@ -105,7 +102,7 @@ jobs:
       - version
       - golang-ci
       - go-release-platform
-      - docker-image-tag
+      - docker-buildx-bake-hubdocker-tag
     name: deploy-tag
     uses: ./.github/workflows/deploy-tag.yml
     if: startsWith(github.ref, 'refs/tags/')
