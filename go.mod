@@ -8,7 +8,7 @@ require (
 	github.com/joho/godotenv v1.5.1
 	github.com/sinlov-go/go-common-lib v1.7.0
 	github.com/sinlov-go/unittest-kit v1.1.0
-	github.com/sinlov/filebrowser-client v0.6.1
+	github.com/sinlov/filebrowser-client v0.7.2
 	github.com/stretchr/testify v1.9.0
 	github.com/urfave/cli/v2 v2.27.2
 	github.com/woodpecker-kit/woodpecker-tools v1.19.0
@@ -27,7 +27,7 @@ require (
 	github.com/imdario/mergo v0.3.11 // indirect
 	github.com/mitchellh/copystructure v1.0.0 // indirect
 	github.com/mitchellh/reflectwalk v1.0.0 // indirect
-	github.com/monaco-io/request v1.0.15 // indirect
+	github.com/monaco-io/request v1.0.16 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/shopspring/decimal v1.2.0 // indirect
