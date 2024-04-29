@@ -58,8 +58,8 @@ github.com/stretchr/testify v1.9.0 h1:HtqpIVDClZ4nwg75+f6Lvsy/wHu+3BoSGCbBAcpTsT
 github.com/stretchr/testify v1.9.0/go.mod h1:r2ic/lqez/lEtzL7wO/rwa5dbSLXVDPFyf8C91i36aY=
 github.com/urfave/cli/v2 v2.27.2 h1:6e0H+AkS+zDckwPCUrZkKX38mRaau4nL2uipkJpbkcI=
 github.com/urfave/cli/v2 v2.27.2/go.mod h1:g0+79LmHHATl7DAcHO99smiR/T7uGLw84w8Y42x+4eM=
-github.com/woodpecker-kit/woodpecker-tools v1.19.0 h1:gD8CIY7B5pcv7KOlkfeFVmayUqnE0RP8J2e5zNdq1Es=
-github.com/woodpecker-kit/woodpecker-tools v1.19.0/go.mod h1:I4XCdk26UEMLXjlQcC40LyGQTBjqTRZ7xmqMDovh000=
+github.com/woodpecker-kit/woodpecker-tools v1.20.0 h1:y7tmv1ZJzY8rgcYCZ2ZKC/yS71ej5NL6EZs+Qk2UyEM=
+github.com/woodpecker-kit/woodpecker-tools v1.20.0/go.mod h1:I4XCdk26UEMLXjlQcC40LyGQTBjqTRZ7xmqMDovh000=
 github.com/woodpecker-kit/woodpecker-transfer-data v1.1.0 h1:3n2qIyp9JG4DR8NEctKDz3qKCl5VDkhqKGZm5SALJZU=
 github.com/woodpecker-kit/woodpecker-transfer-data v1.1.0/go.mod h1:lWXNIyi9iEOE/pLppylMwO+J3dnMmEpOYxJ3gCkihYw=
 github.com/xo/terminfo v0.0.0-20210125001918-ca9a967f8778 h1:QldyIu/L63oPpyvQmHgvgickp1Yw510KJOqX7H24mg8=
