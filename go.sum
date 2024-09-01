@@ -45,8 +45,8 @@ github.com/shopspring/decimal v1.2.0 h1:abSATXmQEYyShuxI4/vyW3tV1MrKAJzCZ/0zLUXY
 github.com/shopspring/decimal v1.2.0/go.mod h1:DKyhrW/HYNuLGql+MJL6WCR6knT2jwCFRcu2hWCYk4o=
 github.com/sinlov-go/go-common-lib v1.7.0 h1:1/zLoIPYRw26haBGU3kw0o8vmSw3bfqQMuK9TtizMn4=
 github.com/sinlov-go/go-common-lib v1.7.0/go.mod h1:B8iZES6+7p3uldjyF6zGv7BG8r0iPgndALZRmiSqkDQ=
-github.com/sinlov-go/unittest-kit v1.1.0 h1:mT3cnhe+LAlvOoxkAggi4xQDOT58Q3az4XKV3R5cdJM=
-github.com/sinlov-go/unittest-kit v1.1.0/go.mod h1:2Xkvyl6VpSXAZ6lyrb4q52Dk4oAD+Yio5KQsd1ZhxOc=
+github.com/sinlov-go/unittest-kit v1.1.1 h1:Xuml8PGkxdwzRQxlO37q/zvE9fHHQlIDM0KZXhE77Oc=
+github.com/sinlov-go/unittest-kit v1.1.1/go.mod h1:u/+OWj6Wm1mnfMRS8FhWjrg5aZ0yqAQM6y0wcHt/o3s=
 github.com/sinlov/filebrowser-client v0.7.2 h1:Nzj1ZNLQ1KoiNN6mkHfHNMHjZ/BrcNdnVo5aKfeieZU=
 github.com/sinlov/filebrowser-client v0.7.2/go.mod h1:8DdBEZXogMQT34aLT9FCiOd1/PcSwtzkao+M/ccDDCk=
 github.com/spf13/cast v1.3.1 h1:nFm6S0SMdyzrzcmThSipiEubIDy8WEXKNZ0UOgiRpng=
