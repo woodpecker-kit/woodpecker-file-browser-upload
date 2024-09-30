@@ -2,6 +2,28 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.7.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.6.0...v1.7.0) (2024-09-30)
+
+### 🐛 Bug Fixes
+
+* simplify file glob check ([aacda375](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/aacda3756c9bf29e72ae3db933de88720bd31dd3))
+
+### ✨ Features
+
+* `file-browser-urls` support multi urls, will auto switch host fast (1.7.+) ([f3ada9f6](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/f3ada9f62e2891be1ac747e8608c5d51896a3f96)), feat [#18](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/issues/18)
+
+### 👷‍ Build System
+
+* bump github.com/sinlov-go/unittest-kit from 1.1.1 to 1.2.1 ([f341b4dd](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/f341b4dd4e663f2d823ad39907aae6c14c26208e))
+
+* bump github.com/Masterminds/semver/v3 from 3.2.1 to 3.3.0 ([ae15cbfe](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/ae15cbfeff29f5ded0cb961d233a79029a3a5cf3))
+
+* bump github.com/sinlov-go/go-common-lib from 1.7.0 to 1.7.1 ([090598cb](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/090598cbb1ac157d64e126591d700022c3b6d4be))
+
+* bump github.com/sinlov-go/unittest-kit from 1.1.0 to 1.1.1 ([61af5716](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/61af5716211f255a707f93d6cb0146f1e8647d81))
+
+* bump github.com/urfave/cli/v2 from 2.27.3 to 2.27.4 ([213b5191](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/213b519162b9bb61988b1aefe275e5398da38180))
+
 ## [1.6.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.5.0...v1.6.0) (2024-04-19)
 
 ### ✨ Features
