@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.7.1](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.7.0...v1.7.1) (2024-09-30)
+
+### 🐛 Bug Fixes
+
+* correct share link generation and logging ([86b042ba](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/86b042ba8ebd516ef5f5eca3391fc3e60201be84))
+
 ## [1.7.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.6.0...v1.7.0) (2024-09-30)
 
 ### 🐛 Bug Fixes
