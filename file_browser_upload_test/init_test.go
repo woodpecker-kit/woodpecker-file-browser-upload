@@ -22,6 +22,8 @@ const (
 	keyEnvCiKey  = "CI_KEY"
 	keyEnvCiKeys = "CI_KEYS"
 
+	keyLinkSpeedTestUrls = "ENV_LINK_SPEED_TEST_URLS"
+
 	mockVersion = "v1.0.0"
 	mockName    = "woodpecker-file-browser-upload"
 

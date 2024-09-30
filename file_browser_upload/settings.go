@@ -1,6 +1,11 @@
 package file_browser_upload
 
 const (
+	TimeoutSecondMinimum       = 10
+	UploadTimeoutSecondMinimum = 60
+	TryConnectTimeoutSecond    = 5
+	TryConnectRetries          = 3
+
 	DistTypeGit    = "git"
 	DistTypeCustom = "custom"
 
@@ -45,11 +50,18 @@ type (
 	}
 
 	FileBrowserBaseConfig struct {
-		FileBrowserHost              string
-		FileBrowserUsername          string
-		FileBrowserUserPassword      string
+		FileBrowserHost         string
+		FileBrowserUsername     string
+		FileBrowserUserPassword string
+
+		FileBrowserUrls []string
+
 		FileBrowserTimeoutPushSecond uint
 		FileBrowserWorkSpace         string
+
+		usedFileBrowserUrl          string
+		usedFileBrowserUsername     string
+		usedFileBrowserUserPassword string
 	}
 
 	FileBrowserSendConfig struct {

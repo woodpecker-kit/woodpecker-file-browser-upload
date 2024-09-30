@@ -14,16 +14,16 @@ woodpecker-file-browser-upload
 ## Features
 
 - [x] upload file to file browser
-  - [x] support file with [glob](https://pkg.go.dev/path/filepath#Match)
-  - [x] support file with regular expression
+    - [x] support file with [glob](https://pkg.go.dev/path/filepath#Match)
+    - [x] support file with regular expression
 - [x] set file custom dist graph
 - [x] support share link
-  - [x] support share link expires
-  - [x] support share link auto password
-  - [x] support share link password
+    - [x] support share link expires
+    - [x] support share link auto password
+    - [x] support share link password
 - [x] support send result to woodpecker steps transfer
 - [x] docker platform support (v1.6.+)
-  -  `linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x`
+    - `linux/amd64 linux/386 linux/arm64/v8 linux/arm/v7 linux/ppc64le linux/s390x`
 
 ## Settings
 
@@ -32,6 +32,7 @@ woodpecker-file-browser-upload
 | `debug`                                   | **no**   | *false*       | open debug log or open by env `PLUGIN_DEBUG`                                                                 |
 | `file-browser-timeout-send-second`        | **no**   | *60*          | push each file timeout push second, must gather than 60.default: 60                                          |
 | `file-browser-host`                       | **yes**  | *none*        | file_browser host like http://127.0.0.1:80                                                                   |
+| `file-browser-urls`                       | **no**   |               | file browser urls, support multi urls, will auto switch url fast (1.7.+)                                     |
 | `file-browser-username`                   | **yes**  | *none*        | file_browser username                                                                                        |
 | `file-browser-user-password`              | **yes**  | *none*        | file_browser user password                                                                                   |
 | `file-browser-work-space`                 | **no**   | *none*        | file_browser work space. default "" will use env:CI_WORKSPACE                                                |
@@ -73,6 +74,10 @@ steps:
     settings:
       # debug: false # plugin debug switch
       file-browser-host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
+      file-browser-urls: # support multi urls, will auto switch url fast (1.7.+)
+        - https://filebrowser-inner.example.com
+        - https://filebrowser.example.com
+        - https://filebrowser-zone.example.com
       file-browser-username: # must set args, file_browser username
         # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
@@ -101,10 +106,10 @@ steps:
 go install -a github.com/woodpecker-kit/woodpecker-file-browser-upload/cmd/woodpecker-file-browser-upload@latest
 ```
 
-- install at ${GOPATH}/bin, v1.0.0
+- install at ${GOPATH}/bin, v1.7.0
 
 ```bash
-go install -v github.com/woodpecker-kit/woodpecker-file-browser-upload/cmd/woodpecker-file-browser-upload@v1.0.0
+go install -v github.com/woodpecker-kit/woodpecker-file-browser-upload/cmd/woodpecker-file-browser-upload@v1.7.0
 ```
 
 ```yml
@@ -116,6 +121,10 @@ steps:
     settings:
       # debug: false # plugin debug switch
       file-browser-host: "http://127.0.0.1:80" # must set args, file_browser host like http://127.0.0.1:80
+      file-browser-urls: # support multi urls, will auto switch url fast (1.7.+)
+        - https://filebrowser-inner.example.com
+        - https://filebrowser.example.com
+        - https://filebrowser-zone.example.com
       file-browser-username: # must set args, file_browser username
         # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_user_name
@@ -143,8 +152,12 @@ steps:
     pull: false
     settings:
       debug: false # plugin debug switch
-      timeout_second: 10 # api timeout default: 10
-      file-browser-timeout-send-second: 60 # push each file timeout push second, must gather than 60.default: 60
+      timeout_second: 10 # api timeout, minimum 10 .default: 10
+      file-browser-timeout-send-second: 60 # push each file timeout push second, minimum 60 .default: 60
+      file-browser-urls: # support multi urls, will auto switch url fast (1.7.+)
+        - https://filebrowser-inner.example.com
+        - https://filebrowser.example.com
+        - https://filebrowser-zone.example.com
       file-browser-host: # must set args, file_browser base url, like http://127.0.0.1:80
         # https://woodpecker-ci.org/docs/usage/secrets
         from_secret: file_browser_host_url
