@@ -106,10 +106,10 @@ steps:
 go install -a github.com/woodpecker-kit/woodpecker-file-browser-upload/cmd/woodpecker-file-browser-upload@latest
 ```
 
-- install at ${GOPATH}/bin, v1.7.0
+- install at ${GOPATH}/bin, v1.7.1
 
 ```bash
-go install -v github.com/woodpecker-kit/woodpecker-file-browser-upload/cmd/woodpecker-file-browser-upload@v1.7.0
+go install -v github.com/woodpecker-kit/woodpecker-file-browser-upload/cmd/woodpecker-file-browser-upload@v1.7.1
 ```
 
 ```yml

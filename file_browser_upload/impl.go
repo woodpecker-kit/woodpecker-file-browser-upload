@@ -371,32 +371,46 @@ func shareBySendConfig(client file_browser_client.FileBrowserClient, p *FileBrow
 	if errSendShareFile != nil {
 		return errSendShareFile
 	}
-	wd_log.Infof("=> share page: %s", sharePost.DownloadPage)
+
+	usedUrl := p.Settings.FileBrowserBaseConfig.usedFileBrowserUrl
+	shareWantShowHost := p.Settings.FileBrowserBaseConfig.FileBrowserHost
+
+	shareRemoteResourceUrlPath := sharePost.RemotePath
+	shareFileBrowserUsername := p.Settings.FileBrowserBaseConfig.FileBrowserUsername
+
+	shareDownloadPage := sharePost.DownloadPage
+	shareDownloadPage = strings.ReplaceAll(shareDownloadPage, usedUrl, shareWantShowHost)
+	wd_log.Infof("=> share page: %s", shareDownloadPage)
+
+	shareDownloadUrl := sharePost.DownloadUrl
+	shareDownloadUrl = strings.ReplaceAll(shareDownloadUrl, usedUrl, shareWantShowHost)
+	wd_log.Debugf("=> share download url: %s", shareDownloadPage)
+
 	var shareFileBrowserUpload wd_share_file_browser_upload.WdShareFileBrowserUpload
 	if passWord == "" {
 		shareFileBrowserUpload = wd_share_file_browser_upload.WdShareFileBrowserUpload{
 			IsSendSuccess:       true,
-			HostUrl:             p.Settings.FileBrowserBaseConfig.FileBrowserHost,
-			FileBrowserUserName: p.Settings.FileBrowserBaseConfig.FileBrowserUsername,
-			ResourceUrl:         sharePost.RemotePath,
-			DownloadPage:        sharePost.DownloadPage,
-			DownloadUrl:         sharePost.DownloadUrl,
+			HostUrl:             shareWantShowHost,
+			FileBrowserUserName: shareFileBrowserUsername,
+			ResourceUrl:         shareRemoteResourceUrlPath,
+			DownloadPage:        shareDownloadPage,
+			DownloadUrl:         shareDownloadUrl,
 		}
 	} else {
 		wd_log.Debugf("=> share pwd: %s", sharePost.DownloadPasswd)
 		wd_log.Info("=> share with password")
 		shareFileBrowserUpload = wd_share_file_browser_upload.WdShareFileBrowserUpload{
 			IsSendSuccess:       true,
-			HostUrl:             p.Settings.FileBrowserBaseConfig.FileBrowserHost,
-			FileBrowserUserName: p.Settings.FileBrowserBaseConfig.FileBrowserUsername,
-			ResourceUrl:         sharePost.RemotePath,
-			DownloadUrl:         sharePost.DownloadUrl,
-			DownloadPage:        sharePost.DownloadPage,
+			HostUrl:             shareWantShowHost,
+			FileBrowserUserName: shareFileBrowserUsername,
+			ResourceUrl:         shareRemoteResourceUrlPath,
+			DownloadUrl:         shareDownloadUrl,
+			DownloadPage:        shareDownloadPage,
 			DownloadPasswd:      sharePost.DownloadPasswd,
 		}
 	}
-	wd_log.Infof("=> share user name: %s", p.Settings.FileBrowserBaseConfig.FileBrowserUsername)
-	wd_log.Infof("=> share remote path: %s", sharePost.RemotePath)
+	wd_log.Infof("=> share user name: %s", shareFileBrowserUsername)
+	wd_log.Infof("=> share remote path: %s", shareRemoteResourceUrlPath)
 
 	p.shareFileBrowserUpload = &shareFileBrowserUpload
 	wd_log.DebugJsonf(p.shareFileBrowserUpload, "shareFileBrowserUpload changes by send seccess\n")
