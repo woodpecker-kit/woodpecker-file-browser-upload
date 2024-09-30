@@ -16,6 +16,9 @@ const (
 	CliNameFileBrowserHost = "settings.file-browser-host"
 	EnvFileBrowserHost     = "PLUGIN_FILE_BROWSER_HOST"
 
+	CliNameFileBrowserUrls = "settings.file-browser-urls"
+	EnvFileBrowserUrls     = "PLUGIN_FILE_BROWSER_URLS"
+
 	CliNameFileBrowserUsername = "settings.file-browser-username"
 	EnvFileBrowserUsername     = "PLUGIN_FILE_BROWSER_USERNAME"
 
@@ -68,6 +71,12 @@ func GlobalFlag() []cli.Flag {
 			Usage:   "file browser host",
 			EnvVars: []string{EnvFileBrowserHost},
 		},
+		&cli.StringSliceFlag{
+			Name:    CliNameFileBrowserUrls,
+			Usage:   fmt.Sprintf("set file browser support multi urls, will auto switch host fast, if not set or host not work, will use standby url, this will cover %s", CliNameFileBrowserHost),
+			EnvVars: []string{EnvFileBrowserUrls},
+		},
+
 		&cli.StringFlag{
 			Name:    CliNameFileBrowserUsername,
 			Usage:   "file browser username",
@@ -172,6 +181,7 @@ func BindCliFlags(c *cli.Context,
 
 		FileBrowserBaseConfig: FileBrowserBaseConfig{
 			FileBrowserHost:              c.String(CliNameFileBrowserHost),
+			FileBrowserUrls:              c.StringSlice(CliNameFileBrowserUrls),
 			FileBrowserUsername:          c.String(CliNameFileBrowserUsername),
 			FileBrowserUserPassword:      c.String(CliNameFileBrowserUserPassword),
 			FileBrowserTimeoutPushSecond: c.Uint(CliNameFileBrowserTimeOutSendSecond),

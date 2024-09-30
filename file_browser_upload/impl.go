@@ -102,13 +102,18 @@ func (p *FileBrowserPlugin) checkArgs() error {
 	}
 
 	// check default FileBrowserTimeoutPushSecond
-	if p.Settings.FileBrowserBaseConfig.FileBrowserTimeoutPushSecond < 60 {
-		p.Settings.FileBrowserBaseConfig.FileBrowserTimeoutPushSecond = 60
+	if p.Settings.FileBrowserBaseConfig.FileBrowserTimeoutPushSecond < UploadTimeoutSecondMinimum {
+		p.Settings.FileBrowserBaseConfig.FileBrowserTimeoutPushSecond = UploadTimeoutSecondMinimum
 	}
 
 	// check default p.Settings.FileBrowserBaseConfig.FileBrowserWorkSpace
 	if p.Settings.FileBrowserBaseConfig.FileBrowserWorkSpace == "" {
 		p.Settings.FileBrowserBaseConfig.FileBrowserWorkSpace = p.woodpeckerInfo.BasicInfo.CIWorkspace
+	}
+
+	// set default TimeoutSecond
+	if p.Settings.TimeoutSecond < TimeoutSecondMinimum {
+		p.Settings.TimeoutSecond = TimeoutSecondMinimum
 	}
 
 	return nil
@@ -126,14 +131,21 @@ func argCheckInArr(mark string, target string, checkArr []string) error {
 //	replace this code with your file_browser_upload implementation
 func (p *FileBrowserPlugin) doBiz() error {
 
+	p.chooseFileBrowserConnect()
+
+	errSyncCheck := p.doUploadCheck()
+	if errSyncCheck != nil {
+		return errSyncCheck
+	}
+
 	p.shareFileBrowserUpload = &wd_share_file_browser_upload.WdShareFileBrowserUpload{
 		IsSendSuccess: false,
 	}
 
 	fileBrowserClient, errNew := file_browser_client.NewClient(
-		p.Settings.FileBrowserBaseConfig.FileBrowserUsername,
-		p.Settings.FileBrowserBaseConfig.FileBrowserUserPassword,
-		p.Settings.FileBrowserBaseConfig.FileBrowserHost,
+		p.Settings.FileBrowserBaseConfig.usedFileBrowserUsername,
+		p.Settings.FileBrowserBaseConfig.usedFileBrowserUserPassword,
+		p.Settings.FileBrowserBaseConfig.usedFileBrowserUrl,
 		p.Settings.TimeoutSecond,
 		p.Settings.FileBrowserBaseConfig.FileBrowserTimeoutPushSecond,
 	)
@@ -286,6 +298,49 @@ func (p *FileBrowserPlugin) doBiz() error {
 		}
 	}
 
+	return nil
+}
+
+func (p *FileBrowserPlugin) chooseFileBrowserConnect() {
+	var connectUrl string
+	var connectUsername string
+	var connectPassword string
+
+	if len(p.Settings.FileBrowserBaseConfig.FileBrowserUrls) > 0 {
+		linkSpeed := NewLinkSpeed(TryConnectTimeoutSecond, TryConnectRetries)
+		bestUrl, err := linkSpeed.BestLinkIgnoreRetry(p.Settings.FileBrowserBaseConfig.FileBrowserUrls)
+		if err != nil {
+			connectUrl = p.Settings.FileBrowserBaseConfig.FileBrowserHost
+			connectUsername = p.Settings.FileBrowserBaseConfig.FileBrowserUsername
+			connectPassword = p.Settings.FileBrowserBaseConfig.FileBrowserUserPassword
+		} else {
+			connectUrl = bestUrl
+			connectUsername = p.Settings.FileBrowserBaseConfig.FileBrowserUsername
+			connectPassword = p.Settings.FileBrowserBaseConfig.FileBrowserUserPassword
+		}
+	} else {
+		connectUrl = p.Settings.FileBrowserBaseConfig.FileBrowserHost
+		connectUsername = p.Settings.FileBrowserBaseConfig.FileBrowserUsername
+		connectPassword = p.Settings.FileBrowserBaseConfig.FileBrowserUserPassword
+	}
+
+	wd_log.Debugf("chooseFileBrowserConnect file browser connect url: %s", connectUrl)
+
+	p.Settings.FileBrowserBaseConfig.usedFileBrowserUrl = connectUrl
+	p.Settings.FileBrowserBaseConfig.usedFileBrowserUsername = connectUsername
+	p.Settings.FileBrowserBaseConfig.usedFileBrowserUserPassword = connectPassword
+}
+
+func (p *FileBrowserPlugin) doUploadCheck() error {
+	if p.Settings.FileBrowserBaseConfig.usedFileBrowserUrl == "" {
+		return fmt.Errorf("do upload before check file browser url is empty")
+	}
+	if p.Settings.FileBrowserBaseConfig.usedFileBrowserUsername == "" {
+		return fmt.Errorf("do upload before check file browser username is empty")
+	}
+	if p.Settings.FileBrowserBaseConfig.usedFileBrowserUserPassword == "" {
+		return fmt.Errorf("do upload before check file browser user password is empty")
+	}
 	return nil
 }
 
