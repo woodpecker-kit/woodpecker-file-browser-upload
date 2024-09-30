@@ -202,7 +202,7 @@ func (p *FileBrowserPlugin) doBiz() error {
 		wd_log.Debugf("target path is file just send one local file: %s", targetRootPath)
 		fileSendPathList = append(fileSendPathList, targetRootPath)
 	} else {
-		if p.Settings.FileBrowserSendConfig.FileBrowserTargetFileGlob != nil && len(p.Settings.FileBrowserSendConfig.FileBrowserTargetFileGlob) > 0 {
+		if len(p.Settings.FileBrowserSendConfig.FileBrowserTargetFileGlob) > 0 {
 			wd_log.Debugf("target file want find by File Glob: %v", p.Settings.FileBrowserSendConfig.FileBrowserTargetFileGlob)
 			for _, glob := range p.Settings.FileBrowserSendConfig.FileBrowserTargetFileGlob {
 				walkByGlob, errWalkAllByGlob := folder.WalkAllByGlob(targetRootPath, glob, true)
