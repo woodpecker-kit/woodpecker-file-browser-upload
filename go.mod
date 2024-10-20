@@ -10,7 +10,7 @@ require (
 	github.com/sinlov-go/unittest-kit v1.2.1
 	github.com/sinlov/filebrowser-client v0.7.2
 	github.com/stretchr/testify v1.9.0
-	github.com/urfave/cli/v2 v2.27.4
+	github.com/urfave/cli/v2 v2.27.5
 	github.com/woodpecker-kit/woodpecker-tools v1.20.0
 	github.com/woodpecker-kit/woodpecker-transfer-data v1.1.0
 )
@@ -20,7 +20,7 @@ require (
 	github.com/Masterminds/sprig/v3 v3.2.3 // indirect
 	github.com/aymerick/raymond v2.0.2+incompatible // indirect
 	github.com/chainguard-dev/git-urls v1.0.2 // indirect
-	github.com/cpuguy83/go-md2man/v2 v2.0.4 // indirect
+	github.com/cpuguy83/go-md2man/v2 v2.0.5 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/google/uuid v1.1.1 // indirect
 	github.com/huandu/xstrings v1.3.3 // indirect
