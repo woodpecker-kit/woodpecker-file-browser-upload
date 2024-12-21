@@ -1,6 +1,6 @@
 {
   "name": "woodpecker-file-browser-upload",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "description": "template of golang cli tools, and can print basic env info",
   "directories": {
     "doc": "doc"

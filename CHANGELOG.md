@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.8.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.7.1...v1.8.0) (2024-12-21)
+
+### ✨ Features
+
+* update Go version to 1.21 ([5b3b1f33](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/5b3b1f331deddb012fc0b34d3bb46905b7f964c0)), re [#23](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/issues/23)
+
+### 📝 Documentation
+
+* update README and CHANGELOG file mod ([4cdc8e73](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/4cdc8e7320d3d01dd552c67c39e94759e5993ff2))
+
+* update contributing guidelines and code of conduct ([b9f99fea](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/b9f99fea6438650ea84d429c846bf71dbc6448a9))
+
+### 👷‍ Build System
+
+* bump github.com/woodpecker-kit/woodpecker-tools ([311044eb](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/311044eb4b7c7d1b2a735c9d0bbdd493e4469881))
+
+* update GitHub release action to v2 ([0ff0f612](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/0ff0f612ef81b262e4b1d62735b9a6f68fc0934b))
+
+* bump github.com/stretchr/testify from 1.9.0 to 1.10.0 ([293abac7](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/293abac7469b084074ddb808298d4f25678a0106))
+
+* bump github.com/Masterminds/semver/v3 from 3.3.0 to 3.3.1 ([02da05dd](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/02da05ddf8de49aca3129ea4e133af9b36596ede))
+
+* bump github.com/urfave/cli/v2 from 2.27.4 to 2.27.5 ([72571fdd](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/72571fdd902d450a2e9ed2c91e625a80014cc37d))
+
 ## [1.7.1](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.7.0...v1.7.1) (2024-09-30)
 
 ### 🐛 Bug Fixes
