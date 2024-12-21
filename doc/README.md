@@ -4,8 +4,8 @@ how to dev
 
 ## env
 
-- minimum go version: go 1.19
-- change `go 1.19`, `^1.19`, `1.19.13` to new go version
+- minimum go version: go 1.21
+- change `go 1.21`, `^1.21`, `1.21.13` to new go version
 
 ### libs
 
