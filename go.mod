@@ -13,7 +13,7 @@ require (
 	github.com/sinlov/filebrowser-client v0.7.2
 	github.com/stretchr/testify v1.10.0
 	github.com/urfave/cli/v2 v2.27.5
-	github.com/woodpecker-kit/woodpecker-tools v1.21.0
+	github.com/woodpecker-kit/woodpecker-tools v1.22.0
 	github.com/woodpecker-kit/woodpecker-transfer-data v1.1.0
 )
 
