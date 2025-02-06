@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [convention-change-log](https://github.com/convention-change/convention-change-log) for commit guidelines.
 
+## [1.9.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.8.0...v1.9.0) (2025-02-06)
+
+### ✨ Features
+
+* update docker bake action to v6 and multi-platform at docker ([33b211a7](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/33b211a7d0c33cc71bc3b7e9744b73f7ea0da793)), feat [#28](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/issues/28)
+
+### 👷‍ Build System
+
+* bump github.com/woodpecker-kit/woodpecker-tools ([b76f0ab8](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/commit/b76f0ab86c54e4ab156531aaf7327fc1406b7514))
+
 ## [1.8.0](https://github.com/woodpecker-kit/woodpecker-file-browser-upload/compare/1.7.1...v1.8.0) (2024-12-21)
 
 ### ✨ Features
