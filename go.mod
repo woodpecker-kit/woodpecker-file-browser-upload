@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.13
 
 require (
-	github.com/Masterminds/semver/v3 v3.3.1
+	github.com/Masterminds/semver/v3 v3.4.0
 	github.com/gookit/color v1.5.4
 	github.com/joho/godotenv v1.5.1
 	github.com/sinlov-go/go-common-lib v1.9.0
